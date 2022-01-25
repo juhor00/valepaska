@@ -27,7 +27,7 @@
 class Server
 {
 public:
-    Server(const std::string& port = "27015");
+    Server(const std::string& port = "12345");
     virtual ~Server();
 
 protected:
