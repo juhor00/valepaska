@@ -7,6 +7,7 @@ SOURCES += \
         ../event.cpp \
         ../utilities.cpp \
         eventhandler.cpp \
+        game/game.cpp \
         game/lobby.cpp \
         main.cpp \
         server.cpp
@@ -15,6 +16,7 @@ HEADERS += \
     ../event.h \
     ../utilities.h \
     eventhandler.h \
+    game/game.h \
     game/lobby.h \
     server.h
 
