@@ -2,8 +2,8 @@
 #define EVENTHANDLER_H
 
 #include "server.h"
+#include "./game/lobby.h"
 
-class Lobby;
 class EventHandler;
 typedef void (EventHandler::*handler)(SOCKET, parameters&);
 
@@ -31,6 +31,12 @@ private:
     // Other event methods
     bool isHandler(command command);
     bool isGenerator(command command);
+
+    // Lobby handling methods
+    void createNewLobby();
+    Lobby *getLobbyByClient(SOCKET client);
+    std::vector<SOCKET> getClientsByLobby(Lobby* lobby);
+    bool hasClient(SOCKET client);
 
 
     Lobby* latestLobby_;
