@@ -1,9 +1,8 @@
-#include <iostream>
-
-using namespace std;
+#include "eventhandler.h"
 
 int main()
 {
-    cout << "Hello World!" << endl;
-    return 0;
+    EventHandler e;
+
+    return EXIT_SUCCESS;
 }
