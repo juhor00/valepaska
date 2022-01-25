@@ -5,9 +5,11 @@ CONFIG -= qt
 
 SOURCES += \
         ../event.cpp \
+        eventhandler.cpp \
         main.cpp \
         server.cpp
 
 HEADERS += \
     ../event.h \
+    eventhandler.h \
     server.h
