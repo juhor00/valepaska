@@ -1,21 +1,28 @@
 #include "eventhandler.h"
 
 EventHandler::EventHandler():
-    latestLobby_(new Lobby),
-    clientsByLobby_({}),
+    latestLobby_(new Lobby(this)),
+    clientsByGroup_({}),
     clients_({})
 {
-    clientsByLobby_.insert({latestLobby_, {}});
+    clientsByGroup_.insert({latestLobby_, {}});
     acceptClients();
 }
 
 EventHandler::~EventHandler()
 {
-    for(auto& [lobby, clients] : clientsByLobby_){
+    for(auto& [lobby, clients] : clientsByGroup_){
         delete lobby;
     }
     if(latestLobby_ != nullptr){
         delete latestLobby_;
+    }
+}
+
+void EventHandler::start(Lobby *lobby)
+{
+    if(lobby->size() > 1){
+        toGame(lobby);
     }
 }
 
@@ -44,15 +51,9 @@ bool EventHandler::addClient(SOCKET client)
     clients_.push_back(client);
 
     // Add to latest game's client list
-    auto clients = getClientsByLobby(latestLobby_);
+    auto clients = getClientsByGroup(latestLobby_);
     clients.push_back(client);
-    clientsByLobby_.at(latestLobby_) = clients;
-
-    // Start game and create new
-    if(clients.size() == LOBBY_SIZE_MAX){
-        latestLobby_->start();
-        createNewLobby();
-    }
+    clientsByGroup_.at(latestLobby_) = clients;
     return true;
 
 }
@@ -67,15 +68,15 @@ bool EventHandler::removeClient(SOCKET client)
     }
 
     // Find list of clients of the game where client is
-    Lobby* lobby = getLobbyByClient(client);
-    std::vector<SOCKET> clients = getClientsByLobby(lobby);
+    Group* group = getGroupByClient(client);
+    std::vector<SOCKET> clients = getClientsByGroup(group);
     clients.erase(std::find(clients.begin(), clients.end(), client));
-    clientsByLobby_.at(lobby) = clients;
+    clientsByGroup_.at(group) = clients;
     clients_.erase(std::find(clients_.begin(), clients_.end(), client));
 
-    if(clients.empty() and clientsByLobby_.size() > 1){
-        clientsByLobby_.erase(lobby);
-        delete lobby;
+    if(clients.empty() and clientsByGroup_.size() > 1){
+        clientsByGroup_.erase(group);
+        delete group;
     }
     return true;
 }
@@ -112,26 +113,39 @@ bool EventHandler::isGenerator(command command)
     return generators_.find(command) != generators_.end();
 }
 
-void EventHandler::createNewLobby()
+Lobby* EventHandler::createNewLobby()
 {
-    latestLobby_ = new Lobby();
-    clientsByLobby_.insert({latestLobby_, {}});
+    latestLobby_ = new Lobby(this);
+    clientsByGroup_.insert({latestLobby_, {}});
+    return latestLobby_;
 }
 
-Lobby *EventHandler::getLobbyByClient(SOCKET client)
+Game *EventHandler::toGame(Lobby* lobby)
 {
-    for(auto& [lobby, clients] : clientsByLobby_){
+    Game* game = new Game(this);
+    lobby->transferTo(game);
+
+    // Move clients from Lobby to Game
+    std::vector<SOCKET> clients = clientsByGroup_.at(lobby);
+    clientsByGroup_.erase(lobby);
+    clientsByGroup_.insert({game, clients});
+    return game;
+}
+
+Group *EventHandler::getGroupByClient(SOCKET client)
+{
+    for(auto& [group, clients] : clientsByGroup_){
         // Game has client
         if(std::find(clients.begin(), clients.end(), client) != clients.end()){
-            return lobby;
+            return group;
         }
     }
     return nullptr;
 }
 
-std::vector<SOCKET> EventHandler::getClientsByLobby(Lobby *lobby)
+std::vector<SOCKET> EventHandler::getClientsByGroup(Group *group)
 {
-    return clientsByLobby_.at(lobby);
+    return clientsByGroup_.at(group);
 }
 
 bool EventHandler::hasClient(SOCKET client)
@@ -139,7 +153,7 @@ bool EventHandler::hasClient(SOCKET client)
     return std::find(clients_.begin(), clients_.end(), client) != clients_.end();
 }
 
-player EventHandler::changeForClient(SOCKET client, player player)
+id EventHandler::changeForClient(SOCKET client, id player)
 {
     int clientIndex = std::find(clients_.begin(), clients_.end(), client) - clients_.begin();
     return player - (clientIndex < player ? 1 : 0);
