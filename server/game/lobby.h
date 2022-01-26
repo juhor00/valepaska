@@ -1,16 +1,26 @@
 #ifndef LOBBY_H
 #define LOBBY_H
 
-#include "game.h"
+#include "group.h"
+#include <unordered_map>
 
-const int LOBBY_SIZE_MAX = 5;
+class EventHandler;
 
-class Lobby
+
+class Lobby : public Group
 {
 public:
-    Lobby();
+    Lobby(EventHandler* eventHandler);
+    void setState(id member, bool isReady);
+    bool add(id member) override;
 
-    void start();
+private:
+
+    bool isReady();
+    void signalReady();
+
+    EventHandler* eventHandler_;
+    std::unordered_map<id, bool> members_;
 };
 
 #endif // LOBBY_H

@@ -1,17 +1,22 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "group.h"
 #include <unordered_set>
 
 class Card;
+class EventHandler;
 
-using player = int;
 using cards = std::unordered_set<Card>;
 
-class Game
+class Game : public Group
 {
 public:
-    Game();
+    Game(EventHandler* eventHandler);
+
+private:
+
+    EventHandler* eventHandler_;
 };
 
 #endif // GAME_H

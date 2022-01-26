@@ -1,6 +1,8 @@
 #include "game.h"
 
-Game::Game()
+
+Game::Game(EventHandler *eventHandler):
+    eventHandler_(eventHandler)
 {
 
 }
