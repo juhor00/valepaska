@@ -41,7 +41,7 @@ bool EventHandler::addClient(SOCKET client)
     if(!Server::addClient(client)){
         return false;
     }
-    clients_.insert(client);
+    clients_.push_back(client);
 
     // Add to latest game's client list
     auto clients = getClientsByLobby(latestLobby_);
@@ -71,7 +71,7 @@ bool EventHandler::removeClient(SOCKET client)
     std::vector<SOCKET> clients = getClientsByLobby(lobby);
     clients.erase(std::find(clients.begin(), clients.end(), client));
     clientsByLobby_.at(lobby) = clients;
-    clients_.erase(client);
+    clients_.erase(std::find(clients_.begin(), clients_.end(), client));
 
     if(clients.empty() and clientsByLobby_.size() > 1){
         clientsByLobby_.erase(lobby);
@@ -137,4 +137,10 @@ std::vector<SOCKET> EventHandler::getClientsByLobby(Lobby *lobby)
 bool EventHandler::hasClient(SOCKET client)
 {
     return std::find(clients_.begin(), clients_.end(), client) != clients_.end();
+}
+
+player EventHandler::changeForClient(SOCKET client, player player)
+{
+    int clientIndex = std::find(clients_.begin(), clients_.end(), client) - clients_.begin();
+    return player - (clientIndex < player ? 1 : 0);
 }

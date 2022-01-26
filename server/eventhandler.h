@@ -14,6 +14,13 @@ public:
     ~EventHandler();
 
     // Event generators
+    void generateTurnEvent(Lobby* lobby, player player);
+    void generateWinEvent(Lobby* lobby, player player);
+    void generateLoseEvent(Lobby* lobby, player player);
+    void generateReadyEvent(Lobby* lobby, player player);
+
+    void generatePlayEvent(Lobby* lobby, cards& cards);
+    void generateDrawEvent(Lobby* lobby, cards& cards);
 
 protected:
 
@@ -37,11 +44,12 @@ private:
     Lobby *getLobbyByClient(SOCKET client);
     std::vector<SOCKET> getClientsByLobby(Lobby* lobby);
     bool hasClient(SOCKET client);
+    player changeForClient(SOCKET client, player player);
 
 
     Lobby* latestLobby_;
     std::unordered_map<Lobby*, std::vector<SOCKET>> clientsByLobby_;
-    std::unordered_set<SOCKET> clients_;
+    std::vector<SOCKET> clients_;
 
     std::unordered_map<command, handler> handlers_ = {
         {},
