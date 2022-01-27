@@ -5,7 +5,12 @@ Lobby::Lobby(EventHandler *eventHandler):
     eventHandler_(eventHandler),
     members_({})
 {
+    std::cout << "Created lobby " << this << std::endl;
+}
 
+Lobby::~Lobby()
+{
+    std::cout << "Deleted lobby " << this << std::endl;
 }
 
 void Lobby::setState(id member, bool state)
