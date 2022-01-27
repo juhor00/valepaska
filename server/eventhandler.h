@@ -48,8 +48,6 @@ private:
 
     // Group handling methods
     Group *getGroupByClient(SOCKET client);
-    std::vector<SOCKET> getClientsByGroup(Group* group);
-    bool hasClient(SOCKET client);
 
 
     Lobby* latestLobby_;

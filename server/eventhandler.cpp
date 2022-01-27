@@ -62,9 +62,6 @@ bool EventHandler::removeClient(SOCKET client)
     if(not Server::removeClient(client)){
         return false;
     }
-    if(not hasClient(client)){
-        return false;
-    }
 
     // Find list of clients of the game where client is
     Group* group = getGroupByClient(client);
@@ -129,19 +126,4 @@ Group *EventHandler::getGroupByClient(SOCKET client)
         }
     }
     return nullptr;
-}
-
-std::vector<SOCKET> EventHandler::getClientsByGroup(Group *group)
-{
-    return group->getMembers();
-}
-
-bool EventHandler::hasClient(SOCKET client)
-{
-    for(Group* group : groups_){
-        if(group->hasMember(client)){
-            return true;
-        }
-    }
-    return false;
 }
