@@ -113,8 +113,6 @@ void Server::acceptClients()
             continue;
         } else {
             addClient(ClientSocket);
-            // New successful connection
-            std::cout << "Added new client " << ClientSocket << std::endl;
 
             //
             // Join message here
@@ -134,6 +132,7 @@ bool Server::addClient(SOCKET client)
     if(hasClient(client)){
         return false;
     }
+    std::cout << "Added new client " << client << std::endl;
     ClientSockets.insert(client);
     std::thread t (&Server::handle, this, client);
     t.detach();
@@ -157,7 +156,7 @@ void Server::closeConnection(SOCKET client)
     iResult = shutdown(client, SD_BOTH);
     if(iResult == SOCKET_ERROR){
 
-        std::cerr << "Shutdown failed with error " << WSAGetLastError() << std::endl;
+        std::cerr << "Connection closing failed with error " << WSAGetLastError() << std::endl;
         closesocket(client);
     }
     ClientSockets.erase(client);
@@ -187,7 +186,6 @@ void Server::handle(SOCKET client)
             handleEvent(event);
 
         } else if(bytes == 0){
-            std::cout << "Connection closing with " << client << std::endl;
             removeClient(client);
             return;
         } else {

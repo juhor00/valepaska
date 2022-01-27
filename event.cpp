@@ -46,14 +46,14 @@ SOCKET Event::getClient()
 
 void Event::print()
 {
-    std::cout << "EVENT INFO" << std::endl;
+    std::cout << "\tEVENT INFO" << std::endl;
 
-    std::cout << "\tClient: ";
+    std::cout << "\t* Client: ";
     if(client_!=INVALID_SOCKET){std::cout << client_;} else {std::cout << "NULL";};
     std::cout << std::endl;
 
-    std::cout << "\tCommand: " << cmd_ << std::endl;
-    std::cout << "\tParameters: [ ";
+    std::cout << "\t* Command: " << cmd_ << std::endl;
+    std::cout << "\t* Parameters: [ ";
     for(std::string& param : params_){
         std::cout << param << " ";
     }
