@@ -119,7 +119,7 @@ void Server::acceptClients()
             //
             // Join message here
             //
-            sendToClient(ClientSocket, "Hello player!");
+            sendToClient(ClientSocket, "Server says hi!");
 
         }
     }
