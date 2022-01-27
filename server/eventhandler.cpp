@@ -113,6 +113,8 @@ Game *EventHandler::toGame(Lobby* lobby)
     lobby->transferTo(game);
 
     groups_.erase(lobby);
+    delete lobby;
+
     groups_.insert(game);
     return game;
 }
