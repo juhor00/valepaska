@@ -36,7 +36,6 @@ private:
 
     // Sending
     bool sendEvent(Event& event);
-    void broadcast(Event& event);
 
     // Other event methods
     bool isHandler(command command);
@@ -51,12 +50,10 @@ private:
     Group *getGroupByClient(SOCKET client);
     std::vector<SOCKET> getClientsByGroup(Group* group);
     bool hasClient(SOCKET client);
-    id changeForClient(SOCKET client, id player);
 
 
     Lobby* latestLobby_;
-    std::unordered_map<Group*, std::vector<SOCKET>> clientsByGroup_;
-    std::vector<SOCKET> clients_;
+    std::unordered_set<Group*> groups_;
 
     std::unordered_map<command, handler> handlers_ = {
         {},
