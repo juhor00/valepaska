@@ -10,6 +10,10 @@ class Client:
         self.addr = (server, port)
         self.connect()
 
+    def __del__(self):
+        print("Client del")
+        self.disconnect()
+
     def connect(self):
         try:
             self.client.connect(self.addr)
@@ -21,11 +25,13 @@ class Client:
         """
         Disconnect from the server
         """
+        print("Disconnecting")
         try:
+            self.client.shutdown(2)
             self.client.close()
             print("Disconnected")
-        except socket.error:
-            pass
+        except socket.error as e:
+            print(e)
 
     def get(self):
         """

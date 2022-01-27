@@ -20,7 +20,7 @@ class Gui(tk.Tk):
 
         self.client = Client(self)
         self.widgets = []
-        self.title("Farkle commands")
+        self.title("Test-client")
 
         self.text_ = tk.Text(self, height=5, width=52, state="disable")
         self.input_ = tk.Label(self)
@@ -38,14 +38,22 @@ class Gui(tk.Tk):
         tk.Button(self, text="Send", command=lambda: self.send_event(None)).grid(columnspan=COLSPAN)
 
         # Close
-        tk.Button(self, text="Close", command=self.destroy).grid(columnspan=COLSPAN)
+        tk.Button(self, text="Close", command=self.__del__).grid(columnspan=COLSPAN)
 
         # Binds
         self.bind('<Return>', self.send_event)
         self.commands_.bind("<<ComboboxSelected>>", None)
 
         self.after(0, new_thread(target=self.client.receive))
-        self.client.send(bytes("TEST", encoding="UTF-8"))
+        self.client.send(bytes("Client says hi!", encoding="UTF-8"))
+
+    def __del__(self):
+        self.client.disconnect()
+        super().destroy()
+
+    def destroy(self):
+        self.__del__()
+
 
     def send_event(self, _):
         msg = self.input_["text"]
