@@ -11,28 +11,6 @@ Group::~Group()
 
 }
 
-void Group::transferTo(Group *other)
-{
-    for(id member : members_){
-        other->add(member);
-    }
-};
-
-int Group::size()
-{
-    return members_.size();
-}
-
-bool Group::isFull()
-{
-    return size() >= MAX_SIZE;
-}
-
-bool Group::isEmpty()
-{
-    return size() == 0;
-}
-
 bool Group::add(id member)
 {
     if(size() >= MAX_SIZE){
@@ -64,4 +42,25 @@ std::vector<id> Group::getMembers()
     return members_;
 }
 
+int Group::size()
+{
+    return members_.size();
+}
+
+bool Group::isFull()
+{
+    return size() >= MAX_SIZE;
+}
+
+bool Group::isEmpty()
+{
+    return size() == 0;
+}
+
+void Group::transferTo(Group *other)
+{
+    for(id member : members_){
+        other->add(member);
+    }
+};
 
