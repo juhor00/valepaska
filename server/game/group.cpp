@@ -23,6 +23,16 @@ int Group::size()
     return members_.size();
 }
 
+bool Group::isFull()
+{
+    return size() >= MAX_SIZE;
+}
+
+bool Group::isEmpty()
+{
+    return size() == 0;
+}
+
 bool Group::add(id member)
 {
     if(size() >= MAX_SIZE){
@@ -47,6 +57,11 @@ bool Group::remove(id member)
 bool Group::hasMember(id member)
 {
     return std::find(members_.begin(), members_.end(), member) != members_.end();
+}
+
+std::vector<id> Group::getMembers()
+{
+    return members_;
 }
 
 
