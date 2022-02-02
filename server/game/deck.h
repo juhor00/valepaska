@@ -2,6 +2,8 @@
 #define DECK_H
 
 #include "cardcollection.h"
+#include <algorithm>
+#include <random>
 
 const int DECK_SIZE = 52;
 
@@ -11,6 +13,7 @@ public:
     Deck();
     Card getTop();
     void generateFull();
+    void shuffle();
 
 private:
 

@@ -31,3 +31,9 @@ void Deck::generateFull()
         this->add(Card(rank, suit));
     }
 }
+
+void Deck::shuffle()
+{
+    auto rng = std::default_random_engine {};
+    std::shuffle(begin(), end(), rng);
+}
