@@ -15,6 +15,7 @@ public:
     int rank() const;
     char suit() const;
     bool equals(const Card other) const;
+    std::string toString() const;
 
 
 
@@ -24,6 +25,8 @@ private:
 
     int rank_;
     char suit_;
+
+    static char rankToChar(int rank);
 
 };
 
