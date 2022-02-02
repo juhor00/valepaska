@@ -5,7 +5,7 @@
 
 const int DECK_SIZE = 52;
 
-class Deck : protected CardCollection
+class Deck : public CardCollection
 {
 public:
     Deck();
