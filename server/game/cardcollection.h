@@ -22,6 +22,8 @@ protected:
     Card getLast();
     Card getFirst();
     void clear();
+    std::deque<Card>::iterator begin();
+    std::deque<Card>::iterator end();
 
 private:
 

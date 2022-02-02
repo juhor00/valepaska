@@ -52,3 +52,13 @@ void CardCollection::clear()
 {
     cards_.clear();
 }
+
+std::deque<Card>::iterator CardCollection::begin()
+{
+    return cards_.begin();
+}
+
+std::deque<Card>::iterator CardCollection::end()
+{
+    return cards_.end();
+}
