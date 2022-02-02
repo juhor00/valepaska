@@ -7,6 +7,9 @@ SOURCES += \
         ../event.cpp \
         ../utilities.cpp \
         eventhandler.cpp \
+        game/card.cpp \
+        game/cardcollection.cpp \
+        game/deck.cpp \
         game/game.cpp \
         game/group.cpp \
         game/lobby.cpp \
@@ -17,6 +20,9 @@ HEADERS += \
     ../event.h \
     ../utilities.h \
     eventhandler.h \
+    game/card.h \
+    game/cardcollection.h \
+    game/deck.h \
     game/game.h \
     game/group.h \
     game/lobby.h \
