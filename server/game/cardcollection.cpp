@@ -25,6 +25,14 @@ bool CardCollection::isEmpty()
     return cards_.empty();
 }
 
+void CardCollection::print()
+{
+    std::cout << "Cards:" << std::endl;
+    for(Card card : cards_){
+        std::cout << " * " << card.toString() << std::endl;
+    }
+}
+
 void CardCollection::add(Card card)
 {
     cards_.push_back(card);
@@ -38,4 +46,9 @@ Card CardCollection::getLast()
 Card CardCollection::getFirst()
 {
     return cards_.front();
+}
+
+void CardCollection::clear()
+{
+    cards_.clear();
 }

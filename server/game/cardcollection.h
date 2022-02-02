@@ -3,6 +3,7 @@
 
 #include "card.h"
 #include <deque>
+#include <iostream>
 
 class CardCollection
 {
@@ -13,12 +14,14 @@ public:
     int size();
     bool hasCard(Card card);
     bool isEmpty();
+    void print();
 
 protected:
 
     void add(Card card);
     Card getLast();
     Card getFirst();
+    void clear();
 
 private:
 
