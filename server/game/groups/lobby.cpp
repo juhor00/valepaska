@@ -1,5 +1,5 @@
 #include "lobby.h"
-#include "../eventhandler.h"
+#include "eventhandler.h"
 
 Lobby::Lobby(EventHandler *eventHandler):
     eventHandler_(eventHandler),
