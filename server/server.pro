@@ -15,6 +15,7 @@ SOURCES += \
         game/groups/group.cpp \
         game/groups/lobby.cpp \
         game/groups/member.cpp \
+        game/groups/player.cpp \
         main.cpp \
         server.cpp
 
@@ -30,6 +31,7 @@ HEADERS += \
     game/groups/group.h \
     game/groups/lobby.h \
     game/groups/member.h \
+    game/groups/player.h \
     server.h
 
 LIBS += -lws2_32

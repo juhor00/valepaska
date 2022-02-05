@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef MEMBER_H
+#define MEMBER_H
 
 using id = unsigned long long;
 
@@ -14,4 +14,4 @@ private:
     id id_;
 };
 
-#endif // PLAYER_H
+#endif // MEMBER_H
