@@ -1,7 +1,8 @@
 #include "cardstack.h"
 
 CardStack::CardStack():
-    CardCollection()
+    CardCollection(),
+    latestCards_({})
 {
 
 }
@@ -9,6 +10,7 @@ CardStack::CardStack():
 void CardStack::add(Card card)
 {
     CardCollection::add(card);
+    latestCards_ = {card};
 }
 
 void CardStack::add(std::vector<Card> cards)
@@ -16,9 +18,15 @@ void CardStack::add(std::vector<Card> cards)
     for(Card card : cards){
         this->add(card);
     }
+    latestCards_ = cards;
 }
 
 void CardStack::clear()
 {
     CardCollection::clear();
+}
+
+std::vector<Card> CardStack::getLatest()
+{
+    return latestCards_;
 }
