@@ -8,7 +8,9 @@ Group::Group():
 
 Group::~Group()
 {
-
+    for(auto& [id, member] : members_){
+        delete member;
+    }
 }
 
 bool Group::add(id id)
