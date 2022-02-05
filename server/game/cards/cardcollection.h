@@ -12,13 +12,14 @@ public:
 
 
     int size();
-    bool hasCard(Card card);
+    bool hasCard(const Card card) const;
     bool isEmpty();
     void print();
 
 protected:
 
-    void add(Card card);
+    void add(const Card card);
+    void remove(const Card card);
     Card getLast();
     Card getFirst();
     void clear();

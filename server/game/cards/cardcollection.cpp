@@ -13,7 +13,7 @@ int CardCollection::size()
     return cards_.size();
 }
 
-bool CardCollection::hasCard(const Card card)
+bool CardCollection::hasCard(const Card card) const
 {
     return std::find_if(cards_.begin(), cards_.end(),
                  [card](const Card other){return card.equals(other);
@@ -33,9 +33,16 @@ void CardCollection::print()
     }
 }
 
-void CardCollection::add(Card card)
+void CardCollection::add(const Card card)
 {
     cards_.push_back(card);
+}
+
+void CardCollection::remove(const Card card)
+{
+    if(hasCard(card)){
+        cards_.erase(std::find(cards_.begin(), cards_.end(), card));
+    }
 }
 
 Card CardCollection::getLast()
