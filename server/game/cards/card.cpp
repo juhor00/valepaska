@@ -26,6 +26,11 @@ std::string Card::toString() const
     return std::string({Card::rankToChar(rank()), suit()});
 }
 
+bool Card::operator==(const Card other) const
+{
+    return equals(other);
+}
+
 char Card::rankToChar(int rank)
 {
     switch(rank){
