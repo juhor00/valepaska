@@ -26,9 +26,3 @@ bool Player::hasCards(cards cards)
 {
     return hand_->hasCards(cards);
 }
-
-void Player::moveTo(CardCollection *other, cards cards)
-{
-    hand_->moveTo(other, cards);
-}
-

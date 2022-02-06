@@ -14,8 +14,6 @@ public:
     void remove(cards cards);
     bool hasCards(cards cards);
 
-    void moveTo(CardCollection* other, cards cards);
-
 private:
 
     HandCards* hand_;
