@@ -15,11 +15,11 @@ public:
     bool hasCard(const Card card) const;
     bool isEmpty();
     void print();
-    void moveTo(CardCollection* other, Card card);
-    void moveAllTo(CardCollection* other);
 
 protected:
 
+    void moveTo(CardCollection* other, Card card);
+    void moveAllTo(CardCollection* other);
     void add(const Card card);
     void remove(const Card card);
     Card getLast();
