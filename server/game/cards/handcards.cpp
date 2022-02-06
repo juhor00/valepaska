@@ -39,3 +39,10 @@ bool HandCards::hasCards(cards cards)
     }
     return true;
 }
+
+void HandCards::moveTo(CardCollection *other, cards cards)
+{
+    for(Card card : cards){
+        CardCollection::moveTo(other, card);
+    }
+}

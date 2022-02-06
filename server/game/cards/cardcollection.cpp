@@ -33,6 +33,19 @@ void CardCollection::print()
     }
 }
 
+void CardCollection::moveTo(CardCollection *other, Card card)
+{
+    other->add(card);
+    remove(card);
+}
+
+void CardCollection::moveAllTo(CardCollection *other)
+{
+    for(Card card : cards_){
+            moveTo(other, card);
+        }
+}
+
 void CardCollection::add(const Card card)
 {
     cards_.push_back(card);

@@ -15,6 +15,8 @@ public:
     bool hasCard(const Card card) const;
     bool isEmpty();
     void print();
+    void moveTo(CardCollection* other, Card card);
+    void moveAllTo(CardCollection* other);
 
 protected:
 
