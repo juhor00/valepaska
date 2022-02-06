@@ -13,7 +13,8 @@ public:
     void add(cards cards);
     void remove(cards cards);
     bool hasCards(cards cards);
-    void play(CardCollection* other, cards cards);
+
+    void moveTo(CardCollection* other, cards cards);
 
 private:
 
