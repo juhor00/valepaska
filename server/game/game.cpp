@@ -51,5 +51,9 @@ void Game::draw(Player *player)
 
 void Game::draw(Player *player, int amount)
 {
-
+    cards cards;
+    for(int i=0; i<amount; i++){
+        cards.insert(deck_->getTop());
+    }
+    player->add(cards);
 }
