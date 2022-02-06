@@ -20,7 +20,7 @@ public:
     bool add(Member* member) override;
     Player* getPlayer(id id);
     std::vector<Player*> getPlayers();
-    Player* changeTurn();
+    Player *changeTurn();
 
     // Game
     void initGame();

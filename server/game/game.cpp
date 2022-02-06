@@ -27,5 +27,29 @@ bool Game::add(Member *member)
 
 Player *Game::getPlayer(id id)
 {
-    return (Player*) getMember(id);
+    return static_cast<Player*>(getMember(id));
+}
+
+std::vector<Player *> Game::getPlayers()
+{
+    std::vector<Player*> players;
+    for(Member* member : getMembers()){
+        players.push_back(static_cast<Player*>(member));
+    }
+    return players;
+}
+
+Player *Game::changeTurn()
+{
+    return static_cast<Player*>(next());
+}
+
+void Game::draw(Player *player)
+{
+    draw(player, 1);
+}
+
+void Game::draw(Player *player, int amount)
+{
+
 }
