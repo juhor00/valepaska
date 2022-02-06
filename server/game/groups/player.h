@@ -10,6 +10,11 @@ public:
     Player(id id);
     ~Player();
 
+    void add(cards cards);
+    void remove(cards cards);
+    bool hasCards(cards cards);
+    void play(CardCollection* other, cards cards);
+
 private:
 
     HandCards* hand_;
