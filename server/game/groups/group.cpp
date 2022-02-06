@@ -67,7 +67,7 @@ bool Group::isEmpty()
 void Group::transferTo(Group *other)
 {
     for(auto& [id, member] : members_){
-        other->add(member);
+        other->add(member->getId());
     }
 }
 
