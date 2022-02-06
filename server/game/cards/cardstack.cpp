@@ -9,14 +9,13 @@ CardStack::CardStack():
 
 void CardStack::add(Card card)
 {
-    CardCollection::add(card);
-    latestCards_ = {card};
+    add(cards({card}));
 }
 
-void CardStack::add(std::vector<Card> cards)
+void CardStack::add(cards cards)
 {
     for(Card card : cards){
-        this->add(card);
+        CardCollection::add(card);
     }
     latestCards_ = cards;
 }
@@ -26,7 +25,10 @@ void CardStack::clear()
     CardCollection::clear();
 }
 
-std::vector<Card> CardStack::getLatest()
+cards CardStack::getLatest()
 {
+    for(Card card : latestCards_){
+        CardCollection::remove(card);
+    }
     return latestCards_;
 }

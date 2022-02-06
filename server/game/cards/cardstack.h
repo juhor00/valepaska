@@ -10,14 +10,14 @@ public:
     CardStack();
 
     void add(Card card);
-    void add(std::vector<Card> cards);
+    void add(cards cards);
     void clear();
 
-    std::vector<Card> getLatest();
+    cards getLatest();
 
 private:
 
-    std::vector<Card> latestCards_;
+    cards latestCards_;
 };
 
 #endif // CARDSTACK_H
