@@ -2,9 +2,6 @@
 #define HANDCARDS_H
 
 #include "cardcollection.h"
-#include <set>
-
-using cards = std::set<Card>;
 
 class HandCards : public CardCollection
 {
