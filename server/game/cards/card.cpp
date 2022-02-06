@@ -31,6 +31,11 @@ bool Card::operator==(const Card other) const
     return equals(other);
 }
 
+bool Card::operator<(const Card other) const
+{
+    return rank() < other.rank();
+}
+
 char Card::rankToChar(int rank)
 {
     switch(rank){

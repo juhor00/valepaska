@@ -17,6 +17,7 @@ public:
     bool equals(const Card other) const;
     std::string toString() const;
     bool operator==(const Card other) const;
+    bool operator<(const Card other) const;
 
 
 
