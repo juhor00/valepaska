@@ -8,6 +8,11 @@ class Player : public Member
 {
 public:
     Player(id id);
+    ~Player();
+
+private:
+
+    HandCards* hand_;
 };
 
 #endif // PLAYER_H
