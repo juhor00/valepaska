@@ -17,6 +17,7 @@ SOURCES += \
         game/groups/lobby.cpp \
         game/groups/member.cpp \
         game/groups/player.cpp \
+        game/groups/turnorder.cpp \
         main.cpp \
         server.cpp
 
@@ -34,6 +35,7 @@ HEADERS += \
     game/groups/lobby.h \
     game/groups/member.h \
     game/groups/player.h \
+    game/groups/turnorder.h \
     server.h
 
 LIBS += -lws2_32
