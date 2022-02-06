@@ -15,6 +15,7 @@ class TurnOrder : public Group
 {
 public:
     TurnOrder();
+    ~TurnOrder();
 
     virtual bool add(id id) override;
     virtual bool remove(id id) override;

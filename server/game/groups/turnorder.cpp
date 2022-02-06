@@ -5,6 +5,11 @@ TurnOrder::TurnOrder()
 
 }
 
+TurnOrder::~TurnOrder()
+{
+    deleteOrder();
+}
+
 bool TurnOrder::add(id id)
 {
     if(not Group::add(id)){
