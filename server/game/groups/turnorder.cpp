@@ -19,23 +19,31 @@ bool TurnOrder::add(id id)
     return true;
 }
 
+bool TurnOrder::add(Member *member)
+{
+    if(not Group::add(member)){
+        return false;
+    }
+    addToOrder(member);
+    return true;
+}
+
 bool TurnOrder::remove(id id)
 {
     if(not Group::hasMember(id)){
         return false;
     }
-    Node* iter = first_;
-    Member* member = getMember(id);
-
-    // iter until iter->next is to be removed
-    while(iter->next->member != member){
-        iter = iter->next;
-    }
-
-    Node* after = iter->next->next;
-    delete iter->next;
-    iter->next = after;
+    removeFromOrder(Group::getMember(id));
     return Group::remove(id);
+}
+
+bool TurnOrder::remove(Member *member)
+{
+    if(not Group::hasMember(member)){
+        return false;
+    }
+    removeFromOrder(member);
+    return Group::remove(member);
 }
 
 Member* TurnOrder::next()
@@ -69,6 +77,20 @@ void TurnOrder::addToOrder(Member *member)
         iter = iter->next;
     }
     iter->next = new Node({member, first_});
+}
+
+void TurnOrder::removeFromOrder(Member *member)
+{
+    Node* iter = first_;
+
+    // iter until iter->next is to be removed
+    while(iter->next->member != member){
+        iter = iter->next;
+    }
+
+    Node* after = iter->next->next;
+    delete iter->next;
+    iter->next = after;
 }
 
 void TurnOrder::deleteOrder()
