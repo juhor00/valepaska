@@ -1,6 +1,7 @@
 #include "turnorder.h"
 
-TurnOrder::TurnOrder()
+TurnOrder::TurnOrder():
+    turn_(nullptr)
 {
 
 }
@@ -48,7 +49,7 @@ bool TurnOrder::remove(Member *member)
 
 Member* TurnOrder::next()
 {
-    first_ = first_->next;
+    turn_ = turn_->next;
     return getTurn();
 }
 
@@ -67,21 +68,26 @@ void TurnOrder::shuffle()
 
 Member *TurnOrder::getTurn()
 {
-    return first_->member;
+    return turn_->member;
 }
 
 void TurnOrder::addToOrder(Member *member)
 {
-    Node* iter = first_;
-    while(iter->next != first_){
+    if(turn_ == nullptr){
+        turn_ = new Node({member, nullptr});
+        turn_->next = turn_;
+        return;
+    }
+    Node* iter = turn_;
+    while(iter->next != turn_){
         iter = iter->next;
     }
-    iter->next = new Node({member, first_});
+    iter->next = new Node({member, turn_});
 }
 
 void TurnOrder::removeFromOrder(Member *member)
 {
-    Node* iter = first_;
+    Node* iter = turn_;
 
     // iter until iter->next is to be removed
     while(iter->next->member != member){
@@ -95,8 +101,8 @@ void TurnOrder::removeFromOrder(Member *member)
 
 void TurnOrder::deleteOrder()
 {
-    Node* previous = first_;
-    Node* iter = first_->next;
+    Node* previous = turn_;
+    Node* iter = turn_->next;
 
     while(iter != nullptr){
         delete previous;
@@ -104,5 +110,5 @@ void TurnOrder::deleteOrder()
         iter = iter->next;
     }
     delete previous;
-    first_ = nullptr;
+    turn_ = nullptr;
 }

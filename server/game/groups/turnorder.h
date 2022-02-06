@@ -31,7 +31,7 @@ private:
     void removeFromOrder(Member* member);
     void deleteOrder();
 
-    Node* first_;
+    Node* turn_;
 };
 
 #endif // TURNORDER_H
