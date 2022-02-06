@@ -9,7 +9,12 @@ Game::Game(EventHandler *eventHandler):
 
 bool Game::add(id id)
 {
-    return Group::add(new Player(id));
+    return TurnOrder::add(new Player(id));
+}
+
+bool Game::add(Member *member)
+{
+    return add(member->getId());
 }
 
 Player *Game::getPlayer(id id)

@@ -1,18 +1,19 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "groups/group.h"
+#include "groups/turnorder.h"
 #include "groups/player.h"
 
 
 class EventHandler;
 
-class Game : public Group
+class Game : public TurnOrder
 {
 public:
     Game(EventHandler* eventHandler);
 
     bool add(id id) override;
+    bool add(Member* member) override;
     Player* getPlayer(id id);
 
 private:
