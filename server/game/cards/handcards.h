@@ -2,9 +2,9 @@
 #define HANDCARDS_H
 
 #include "cardcollection.h"
-#include <unordered_set>
+#include <set>
 
-using cards = std::unordered_set<Card>;
+using cards = std::set<Card>;
 
 class HandCards : public CardCollection
 {
