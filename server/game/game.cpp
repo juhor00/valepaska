@@ -57,3 +57,9 @@ void Game::draw(Player *player, int amount)
     }
     player->add(cards);
 }
+
+void Game::takeLatest(Player *player)
+{
+    player->add(cardStack_->getLatest());
+
+}
