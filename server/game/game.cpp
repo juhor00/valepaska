@@ -9,6 +9,11 @@ Game::Game(EventHandler *eventHandler):
 
 }
 
+Game::Game():
+    Game(nullptr)
+{
+}
+
 Game::~Game()
 {
     delete deck_;

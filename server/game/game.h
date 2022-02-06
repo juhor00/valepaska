@@ -13,6 +13,7 @@ class Game : public TurnOrder
 {
 public:
     Game(EventHandler* eventHandler);
+    Game();
     ~Game();
 
     // Players
