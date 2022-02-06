@@ -17,6 +17,7 @@ public:
     void remove(cards cards);
     bool hasCards(cards cards);
     void moveTo(CardCollection* other, cards cards);
+    void clear();
 };
 
 #endif // HANDCARDS_H

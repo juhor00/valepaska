@@ -46,3 +46,8 @@ void HandCards::moveTo(CardCollection *other, cards cards)
         CardCollection::moveTo(other, card);
     }
 }
+
+void HandCards::clear()
+{
+    CardCollection::clear();
+}
