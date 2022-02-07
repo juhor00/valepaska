@@ -4,9 +4,9 @@
 #include "card.h"
 #include <deque>
 #include <iostream>
-#include <set>
+#include <vector>
 
-using cards = std::set<Card>;
+using cards = std::vector<Card>;
 
 class CardCollection
 {
