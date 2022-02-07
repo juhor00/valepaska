@@ -39,6 +39,8 @@ bool Card::operator<(const Card other) const
 char Card::rankToChar(int rank)
 {
     switch(rank){
+    case 10:
+        return 'T';
     case 11:
         return 'J';
     case 12:
@@ -48,6 +50,6 @@ char Card::rankToChar(int rank)
     case 14:
         return 'A';
     default:
-        return (char) rank;
+        return '0' + rank;
     }
 }
