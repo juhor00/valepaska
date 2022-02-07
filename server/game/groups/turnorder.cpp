@@ -122,14 +122,15 @@ void TurnOrder::removeFromOrder(Member *member)
 
 void TurnOrder::deleteOrder()
 {
-    Node* previous = turn_;
     Node* iter = turn_->next;
+    Node* previous = turn_;
+    previous->next = nullptr;
+    delete previous;
 
-    while(iter != nullptr){
-        delete previous;
+    while(iter != turn_){
         previous = iter;
         iter = iter->next;
+        delete previous;
     }
-    delete previous;
     turn_ = nullptr;
 }
