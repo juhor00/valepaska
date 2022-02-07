@@ -25,6 +25,7 @@ public:
 
     // Game
     void initGame();
+    void print();
 
     // Deck
     void draw(Player* player);

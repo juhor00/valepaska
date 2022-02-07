@@ -24,6 +24,10 @@ void Tester::mainloop()
             printHelp();
         } else if(input == "quit"){
             return;
+        } else if(input == "print"){
+            game_->print();
+        } else {
+            cout << "Invalid command" << endl;
         }
 
     }

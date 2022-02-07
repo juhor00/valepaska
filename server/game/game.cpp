@@ -49,6 +49,11 @@ Player *Game::changeTurn()
     return static_cast<Player*>(next());
 }
 
+void Game::print()
+{
+    std::cout << "Game state" << std::endl;
+}
+
 void Game::draw(Player *player)
 {
     draw(player, 1);
