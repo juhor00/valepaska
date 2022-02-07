@@ -4,6 +4,7 @@
 #include "game/game.h"
 #include "eventhandler.h"
 #include <iostream>
+#include <iomanip>
 #include <map>
 
 using namespace std;
@@ -20,6 +21,7 @@ private:
     int promptPlayers();
     void createPlayers(int amount);
     void printHelp();
+    int calcLongestCmd();
 
     Game* game_;
     map<string, string> help_ = {
@@ -27,6 +29,7 @@ private:
         {"quit", "Quits the program"},
         {"print", "Prints the game state"},
     };
+    const int cmdLen_;
 };
 
 #endif // TESTER_H

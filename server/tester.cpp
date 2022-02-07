@@ -1,10 +1,10 @@
 #include "tester.h"
 
 Tester::Tester():
-    game_(new Game)
+    game_(new Game),
+    cmdLen_(calcLongestCmd())
 {
     createPlayers(promptPlayers());
-    cout << "Elossa ollaa" << endl;
     mainloop();
 }
 
@@ -58,11 +58,20 @@ void Tester::createPlayers(int amount)
 
 void Tester::printHelp()
 {
+    int cmdLen = max(cmdLen_, (int) size("Command"));
     cout << "----HELP----" << endl;
-    cout << "Command | Description" << endl;
+    cout << setw(cmdLen) << "Command" << " | " << "Description" << endl;
     for(auto& [command, desc] : help_){
-       cout << command << " | " << desc << endl;
+       cout << setw(cmdLen) << command << " | " << desc << endl;
     }
     cout << "----HELP----" << endl;
+
+}
+
+int Tester::calcLongestCmd()
+{
+    auto iter = std::max_element(help_.begin(), help_.end(),
+                                 [](auto a, auto b){return size(a.first) < size(b.first);});
+    return size(iter->first);
 
 }
