@@ -71,6 +71,27 @@ Member *TurnOrder::getTurn()
     return turn_->member;
 }
 
+std::vector<Member *> TurnOrder::getMembersInOrder()
+{
+    std::vector<Member*> order({turn_->member});
+    Node* iter = turn_->next;
+    while(iter != turn_){
+        order.push_back(iter->member);
+        iter = iter->next;
+    }
+    return order;
+}
+
+bool TurnOrder::isInTurn(Member *member)
+{
+    return turn_->member == member;
+}
+
+bool TurnOrder::isInTurn(id id)
+{
+    return turn_->member->getId() == id;
+}
+
 void TurnOrder::addToOrder(Member *member)
 {
     if(turn_ == nullptr){

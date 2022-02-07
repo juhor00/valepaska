@@ -24,6 +24,9 @@ public:
     Member* next();
     void shuffle();
     Member *getTurn();
+    std::vector<Member*> getMembersInOrder();
+    bool isInTurn(Member* member);
+    bool isInTurn(id id);
 
 private:
 
