@@ -49,9 +49,43 @@ Player *Game::changeTurn()
     return static_cast<Player*>(next());
 }
 
+void Game::initGame()
+{
+    deck_->generateFull();
+    cardStack_->clear();
+
+    for(Member* member : getMembersInOrder()){
+        Player* player = static_cast<Player*>(member);
+        player->clear();
+        draw(player, DRAW_MIN);
+    }
+}
+
 void Game::print()
 {
-    std::cout << "Game state" << std::endl;
+    std::cout << "----Game state----" << std::endl;
+    std::cout << std::endl;
+    std::cout << "--Deck--" << std::endl;
+    deck_->print();
+    std::cout << "--Deck--" << std::endl;
+    std::cout << std::endl;
+    std::cout << "--CardStack--" << std::endl;
+    cardStack_->print();
+    std::cout << "--CardStack--" << std::endl;
+    std::cout << std::endl;
+    std::cout << "--Players--" << std::endl;
+    for(Member* member : getMembersInOrder()){
+        Player* player = static_cast<Player*>(member);
+        if(isInTurn(player)){
+            std::cout << "[+] ";
+        } else {
+            std::cout << "[ ] ";
+        }
+        player->print();
+        std::cout << std::endl;
+    }
+    std::cout << "--Players--" << std::endl;
+    std::cout << std::endl;
 }
 
 void Game::draw(Player *player)

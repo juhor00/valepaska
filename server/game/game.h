@@ -6,6 +6,8 @@
 #include "cards/deck.h"
 #include "cards/cardstack.h"
 
+const int DRAW_MIN = 5;
+
 
 class EventHandler;
 
