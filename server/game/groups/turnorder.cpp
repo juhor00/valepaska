@@ -58,7 +58,8 @@ void TurnOrder::shuffle()
     deleteOrder();
 
     std::vector<Member*> members = Group::getMembers();
-    auto rng = std::default_random_engine {};
+    std::default_random_engine rng;
+    rng.seed(std::chrono::system_clock::now().time_since_epoch().count());
     std::shuffle(members.begin(), members.end(), rng);
 
     for(Member* member : members){

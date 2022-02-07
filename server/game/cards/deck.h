@@ -4,6 +4,7 @@
 #include "cardcollection.h"
 #include <algorithm>
 #include <random>
+#include <chrono>
 
 const int DECK_SIZE = 52;
 

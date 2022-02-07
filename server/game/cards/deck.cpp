@@ -36,6 +36,7 @@ void Deck::generateFull()
 
 void Deck::shuffle()
 {
-    auto rng = std::default_random_engine {};
+    std::default_random_engine rng;
+    rng.seed(std::chrono::system_clock::now().time_since_epoch().count());
     std::shuffle(begin(), end(), rng);
 }
