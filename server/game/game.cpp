@@ -51,8 +51,13 @@ Player *Game::changeTurn()
 
 void Game::initGame()
 {
+    // Deck and cardstack
     deck_->generateFull();
+    deck_->shuffle();
     cardStack_->clear();
+
+    // Players
+    TurnOrder::shuffle();
 
     for(Member* member : getMembersInOrder()){
         Player* player = static_cast<Player*>(member);
