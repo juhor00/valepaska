@@ -10,7 +10,9 @@ Deck::Deck():
 
 Card Deck::getTop()
 {
-    return getLast();
+    Card last = getLast();
+    remove(last);
+    return last;
 }
 
 void Deck::generateFull()
