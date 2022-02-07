@@ -5,6 +5,7 @@ Tester::Tester():
     cmdLen_(calcLongestCmd())
 {
     createPlayers(promptPlayers());
+    game_->initGame();
     mainloop();
 }
 
