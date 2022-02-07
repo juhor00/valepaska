@@ -27,7 +27,7 @@ bool CardCollection::isEmpty()
 
 void CardCollection::print()
 {
-    std::cout << "Cards:" << std::endl;
+    std::cout << "Cards [" << size() << "]:" << std::endl;
     for(Card card : cards_){
         std::cout << " * " << card.toString() << std::endl;
     }
