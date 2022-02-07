@@ -13,6 +13,8 @@ public:
     void add(cards cards);
     void remove(cards cards);
     bool hasCards(cards cards);
+    void print();
+    void clear();
 
 private:
 

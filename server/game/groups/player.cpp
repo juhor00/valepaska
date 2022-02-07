@@ -26,3 +26,14 @@ bool Player::hasCards(cards cards)
 {
     return hand_->hasCards(cards);
 }
+
+void Player::print()
+{
+    std::cout << getId() << std::endl;
+    hand_->print();
+}
+
+void Player::clear()
+{
+    hand_->clear();
+}
