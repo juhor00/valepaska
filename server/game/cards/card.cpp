@@ -2,9 +2,48 @@
 
 
 
-Card::Card(int rank, char suit) : rank_(rank),
-    suit_(suit)
-{}
+Card::Card(int rank, char suit)
+{
+    if(not(2 <= rank && rank <= 14)){
+        throw InvalidCardException("Invalid rank " + std::to_string(rank));
+    }
+
+    std::string a = "CDSH";
+    if(a.find(suit) == a.npos){
+        throw InvalidCardException("Invalid suit " + std::string(1, suit));
+    }
+
+    rank_ = rank;
+    suit_ = suit;
+}
+
+Card::Card(std::string str)
+{
+    char rankC = str.substr(0,1).c_str()[0];
+    int rank;
+    switch(rankC){
+    case 'T':
+        rank = 10;
+        break;
+    case 'J':
+        rank = 11;
+        break;
+    case 'Q':
+        rank = 12;
+        break;
+    case 'K':
+        rank = 13;
+        break;
+    case 'A':
+        rank = 14;
+        break;
+    default:
+        rank = std::atoi(&rankC);
+    }
+
+    char suit = str.substr(1,1).c_str()[0];
+    Card(rank, suit);
+}
 
 int Card::rank() const
 {
