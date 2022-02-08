@@ -114,6 +114,8 @@ void Game::play(Player *player, cards cards, int claimRank)
     //
     // DO SOMETHING WITH CLAIM
     //
+
+    changeTurn();
 }
 
 void Game::play(id player, cards cards, int claimRank)
