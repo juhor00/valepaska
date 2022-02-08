@@ -128,36 +128,40 @@ cards Tester::promptCards(id id)
 
     while(true){
         cout << BACK << endl;
-        cout << "Choose cards separated by : > ";
+        cout << "Choose cards separated by space: > ";
 
         getline(cin, input);
         if(input == "back"){
             throw BackException();
         }
-        auto cardsStr = utils::split(input, " ");
-        vector<Card> cards;
-        for(string& card : cardsStr){
-            cout << card << endl;
+        cards playedCards = {};
+        std::vector<string> cardsStr = utils::split(input);
+        for(string& cardStr : cardsStr){
+            cardStr = utils::toUpper(cardStr);
             try{
-                cards.push_back(Card(utils::toUpper(card)));
+                Card card(cardStr);
+                cout << "Adding " << card.toString() << endl;
+                playedCards.push_back(card);
             }
-            catch(InvalidCardException& e){
+            catch(InvalidCardException e){
                 cout << e.what() << endl;
                 break;
             }
         }
 
-        if(cards.empty()){
+        if(cardsStr.size() != playedCards.size()){
+            // Not all succeeded
             continue;
         }
 
-        for(Card card : cards){
-            cout << card.toString() << endl;
+        if(playedCards.empty()){
+            continue;
         }
-        if(player->hasCards(cards)){
-            return cards;
+
+        if(player->hasCards(playedCards)){
+            return playedCards;
         } else {
-            cout << "Invalid cards" << endl;
+            cout << "Player doesn't have all the cards!" << endl;
         }
 
     }
