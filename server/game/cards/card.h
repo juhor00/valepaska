@@ -46,6 +46,9 @@ public:
 
 private:
 
+    static int getRankFromStr(std::string s);
+    static char getSuitFromStr(std::string s);
+
     int rank_;
     char suit_;
 

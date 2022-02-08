@@ -17,34 +17,8 @@ Card::Card(int rank, char suit)
     suit_ = suit;
 }
 
-Card::Card(std::string str)
-{
-
-    char rankC = str.at(0);
-    int rank;
-    switch(rankC){
-    case 'T':
-        rank = 10;
-        break;
-    case 'J':
-        rank = 11;
-        break;
-    case 'Q':
-        rank = 12;
-        break;
-    case 'K':
-        rank = 13;
-        break;
-    case 'A':
-        rank = 14;
-        break;
-    default:
-        rank = std::atoi(&rankC);
-    }
-
-    char suit = str.at(1);
-    Card(rank, suit);
-}
+Card::Card(std::string str):
+    Card(getRankFromStr(str), getSuitFromStr(str)){}
 
 int Card::rank() const
 {
@@ -74,6 +48,43 @@ bool Card::operator==(const Card other) const
 bool Card::operator<(const Card other) const
 {
     return rank() < other.rank();
+}
+
+int Card::getRankFromStr(std::string s)
+{
+    if(s.empty()){
+        throw InvalidCardException();
+    }
+    char rankC = s.at(0);
+    int rank;
+    switch(rankC){
+    case 'T':
+        rank = 10;
+        break;
+    case 'J':
+        rank = 11;
+        break;
+    case 'Q':
+        rank = 12;
+        break;
+    case 'K':
+        rank = 13;
+        break;
+    case 'A':
+        rank = 14;
+        break;
+    default:
+        rank = std::atoi(&rankC);
+    }
+    return rank;
+}
+
+char Card::getSuitFromStr(std::string s)
+{
+    if(s.size() < 2){
+        throw InvalidCardException();
+    }
+    return s.at(1);
 }
 
 char Card::rankToChar(int rank)
