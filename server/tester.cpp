@@ -27,6 +27,9 @@ void Tester::mainloop()
             return;
         } else if(input == "print"){
             game_->print();
+        } else if(input == "play"){
+            id player = promptPlayer();
+            game_->play(player, promptCards(player), promptClaim());
         } else {
             cout << "Invalid command" << endl;
         }
@@ -78,5 +81,42 @@ int Tester::calcLongestCmd()
     auto iter = std::max_element(help_.begin(), help_.end(),
                                  [](auto a, auto b){return size(a.first) < size(b.first);});
     return size(iter->first);
+
+}
+
+id Tester::promptPlayer()
+{
+    string input;
+    auto players = game_->getPlayers();
+    sort(players.begin(), players.end(), [](Player* a, Player* b){return a->getId() < b->getId();});
+
+    while(true){
+        cout << "Go back by typing \"back\"";
+        cout << "Select a player " << players.front()->getId() << " - " << players.back()->getId() << ": > ";
+        cin >> input;
+        try{
+            if(input == "back"){
+                throw BackException();
+            }
+            id player = (id) stoi(input);
+            if(find_if(players.begin(), players.end(), [player](Player* other){return other->getId() == player;}) != players.end()){
+                return player;
+            } else {
+                cout << "Invalid player" << endl;
+            }
+        }
+        catch(std::invalid_argument& e){
+            cout << "Input must be number" << endl;
+        }
+    }
+}
+
+cards Tester::promptCards(id player)
+{
+
+}
+
+int Tester::promptClaim()
+{
 
 }
