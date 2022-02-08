@@ -62,7 +62,7 @@ void Game::initGame()
     for(Member* member : getMembersInOrder()){
         Player* player = static_cast<Player*>(member);
         player->clear();
-        draw(player, DRAW_MIN);
+        drawTo(player, DRAW_MIN);
     }
 }
 
@@ -106,6 +106,7 @@ void Game::play(Player *player, cards cards, int claimRank)
     }
 
     player->remove(cards);
+    drawTo(player, DRAW_MIN);
 
 
     cardStack_->add(cards);
