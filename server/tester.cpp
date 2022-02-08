@@ -28,8 +28,8 @@ void Tester::mainloop()
         } else if(input == "print"){
             game_->print();
         } else if(input == "play"){
+            id player = game_->getTurn()->getId();
             try{
-                id player = promptPlayer();
                 cards cards = promptCards(player);
                 game_->play(player, cards, promptClaim());
             }
@@ -98,8 +98,10 @@ id Tester::promptPlayer()
     auto players = game_->getPlayers();
     sort(players.begin(), players.end(), [](Player* a, Player* b){return a->getId() < b->getId();});
 
+    cout << BACK << endl;
+
     while(true){
-        cout << BACK << endl;
+
         cout << "Select a player " << players.front()->getId() << " - " << players.back()->getId() << ": > ";
         getline(cin, input);
         try{
@@ -121,13 +123,14 @@ id Tester::promptPlayer()
 
 cards Tester::promptCards(id id)
 {
-    cout << "Player " << id << " cards:" << endl;
     Player* player = game_->getPlayer(id);
     player->print();
     string input;
 
+    cout << BACK << endl;
+
     while(true){
-        cout << BACK << endl;
+
         cout << "Choose cards separated by space: > ";
 
         getline(cin, input);
@@ -140,7 +143,6 @@ cards Tester::promptCards(id id)
             cardStr = utils::toUpper(cardStr);
             try{
                 Card card(cardStr);
-                cout << "Adding " << card.toString() << endl;
                 playedCards.push_back(card);
             }
             catch(InvalidCardException& e){
@@ -172,10 +174,10 @@ int Tester::promptClaim()
 {
 
     string input;
-
+    cout << BACK << endl;
 
     while(true){
-        cout << BACK << endl;
+
         cout << "Choose claim (2-14): > ";
         getline(cin, input);
         try{
