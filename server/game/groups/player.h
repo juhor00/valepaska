@@ -13,6 +13,7 @@ public:
     void add(cards cards);
     void remove(cards cards);
     bool hasCards(cards cards);
+    int getCardCount();
     void print();
     void clear();
 

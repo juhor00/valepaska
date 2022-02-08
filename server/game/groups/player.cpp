@@ -27,9 +27,14 @@ bool Player::hasCards(cards cards)
     return hand_->hasCards(cards);
 }
 
+int Player::getCardCount()
+{
+    return hand_->size();
+}
+
 void Player::print()
 {
-    std::cout << getId() << std::endl;
+    std::cout << "Player " << getId() << " cards:" << std::endl;
     hand_->print();
 }
 
