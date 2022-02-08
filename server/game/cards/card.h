@@ -3,11 +3,33 @@
 
 
 #include <string>
+#include <iostream>
+
+
+class InvalidCardException : public std::exception {
+public:
+    InvalidCardException():
+        message_("Invalid card"){}
+
+    InvalidCardException(const std::string message):
+        message_(message){}
+
+    virtual const char* what() const throw(){
+        return message_.c_str();
+    }
+
+
+private:
+
+    const std::string message_;
+};
+
 
 class Card
 {
 public:
     Card(int rank, char suit);
+    Card(std::string str);
 
 
 
