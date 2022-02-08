@@ -136,14 +136,14 @@ cards Tester::promptCards(id id)
         }
         cards playedCards = {};
         std::vector<string> cardsStr = utils::split(input);
-        for(string& cardStr : cardsStr){
+        for(string cardStr : cardsStr){
             cardStr = utils::toUpper(cardStr);
             try{
                 Card card(cardStr);
                 cout << "Adding " << card.toString() << endl;
                 playedCards.push_back(card);
             }
-            catch(InvalidCardException e){
+            catch(InvalidCardException& e){
                 cout << e.what() << endl;
                 break;
             }
