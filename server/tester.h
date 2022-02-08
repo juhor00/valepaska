@@ -50,6 +50,7 @@ private:
 
     };
     const int cmdLen_;
+    inline static const string BACK = "Go back by typing \"back\"";
 };
 
 #endif // TESTER_H
