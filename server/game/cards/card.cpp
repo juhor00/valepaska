@@ -4,12 +4,11 @@
 
 Card::Card(int rank, char suit)
 {
-    if(not(2 <= rank && rank <= 14)){
+    if(not Card::isValidRank(rank)){
         throw InvalidCardException("Invalid rank " + std::to_string(rank));
     }
 
-    std::string a = "CDSH";
-    if(a.find(suit) == a.npos){
+    if(not Card::isValidSuit(suit)){
         throw InvalidCardException("Invalid suit " + std::string(1, suit));
     }
 
@@ -50,6 +49,17 @@ bool Card::operator<(const Card other) const
     return rank() < other.rank();
 }
 
+bool Card::isValidRank(int rank)
+{
+    return (2 <= rank && rank <= 14);
+}
+
+bool Card::isValidSuit(char suit)
+{
+    std::string a = "CDSH";
+    return (a.find(suit) != a.npos);
+}
+
 int Card::getRankFromStr(std::string s)
 {
     if(s.empty()){
@@ -74,7 +84,11 @@ int Card::getRankFromStr(std::string s)
         rank = 14;
         break;
     default:
-        rank = std::atoi(&rankC);
+        try {rank = std::stoi(&rankC);}
+        catch(std::exception e){
+            return -1;
+        }
+
     }
     return rank;
 }

@@ -41,7 +41,8 @@ public:
     bool operator<(const Card other) const;
 
 
-
+    static bool isValidRank(int rank);
+    static bool isValidSuit(char suit);
 
 
 private:
