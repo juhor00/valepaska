@@ -23,21 +23,31 @@ public:
     bool add(Member* member) override;
     Player* getPlayer(id id);
     std::vector<Player*> getPlayers();
-    Player *changeTurn();
 
     // Game
     void initGame();
     void print();
 
+    void play(Player* player, cards cards, int claimRank);
+    void play(id player, cards cards, int claimRank);
+
+    void deckPlay(id player);
+    void deckPlayClaim(int rank);
+
+private:
+
+
+    Player *changeTurn();
+
     // Deck
     void draw(Player* player);
     void draw(Player* player, int amount);
+    void drawTo(Player* player, int target);
+
     Card playFromDeck(Player* player);
 
     // CardStack
     void takeLatest(Player* player);
-
-private:
 
     EventHandler* eventHandler_;
     Deck* deck_;

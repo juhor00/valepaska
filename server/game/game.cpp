@@ -93,6 +93,33 @@ void Game::print()
     std::cout << std::endl;
 }
 
+void Game::play(Player *player, cards cards, int claimRank)
+{
+    if(not isInTurn(player)){
+        return;
+    }
+    if(not player->hasCards(cards)){
+        return;
+    }
+    if(not Card::isValidRank(claimRank)){
+        return;
+    }
+
+    player->remove(cards);
+
+
+    cardStack_->add(cards);
+
+    //
+    // DO SOMETHING WITH CLAIM
+    //
+}
+
+void Game::play(id player, cards cards, int claimRank)
+{
+    play(getPlayer(player), cards, claimRank);
+}
+
 void Game::draw(Player *player)
 {
     draw(player, 1);
@@ -102,9 +129,18 @@ void Game::draw(Player *player, int amount)
 {
     cards cards;
     for(int i=0; i<amount; i++){
-        cards.push_back(deck_->getTop());
+        if(not deck_->isEmpty()){
+            cards.push_back(deck_->getTop());
+        }
+
     }
     player->add(cards);
+}
+
+void Game::drawTo(Player *player, int target)
+{
+    int amount = target - player->getCardCount();
+    draw(player, amount);
 }
 
 void Game::takeLatest(Player *player)
