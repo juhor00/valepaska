@@ -19,7 +19,8 @@ Card::Card(int rank, char suit)
 
 Card::Card(std::string str)
 {
-    char rankC = str.substr(0,1).c_str()[0];
+
+    char rankC = str.at(0);
     int rank;
     switch(rankC){
     case 'T':
@@ -41,7 +42,7 @@ Card::Card(std::string str)
         rank = std::atoi(&rankC);
     }
 
-    char suit = str.substr(1,1).c_str()[0];
+    char suit = str.at(1);
     Card(rank, suit);
 }
 
