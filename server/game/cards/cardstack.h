@@ -14,6 +14,7 @@ public:
     void clear();
 
     cards getLatest();
+    cards getAll();
 
 private:
 

@@ -32,3 +32,10 @@ cards CardStack::getLatest()
     }
     return latestCards_;
 }
+
+cards CardStack::getAll()
+{
+    cards cards = CardCollection::getAll();
+    clear();
+    return cards;
+}
