@@ -8,10 +8,10 @@
 class InvalidCardException : public std::exception {
 public:
     InvalidCardException():
-        message_("Invalid card"){}
+        InvalidCardException("Invalid card"){}
 
     InvalidCardException(const std::string message):
-        message_(message){}
+        message_("InvalidCardException: " + message){}
 
     virtual const char* what() const throw(){
         return message_.c_str();
