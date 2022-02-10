@@ -75,19 +75,15 @@ void CardCollection::clear()
 
 cards CardCollection::getAll()
 {
-    cards cards;
-    for(Card card : cards_){
-        cards.push_back(card);
-    }
-    return cards;
+    return cards_;
 }
 
-std::deque<Card>::iterator CardCollection::begin()
+cards::iterator CardCollection::begin()
 {
     return cards_.begin();
 }
 
-std::deque<Card>::iterator CardCollection::end()
+cards::iterator CardCollection::end()
 {
     return cards_.end();
 }
