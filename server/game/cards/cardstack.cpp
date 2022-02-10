@@ -27,9 +27,6 @@ void CardStack::clear()
 
 cards CardStack::getLatest()
 {
-    for(Card card : latestCards_){
-        CardCollection::remove(card);
-    }
     return latestCards_;
 }
 
