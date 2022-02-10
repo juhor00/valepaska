@@ -95,10 +95,11 @@ bool TurnOrder::isInTurn(id id)
 
 Member *TurnOrder::turnTo(Member *member)
 {
+    Member* iter = member;
     while(member != getTurn()){
-        member = next();
+        iter = next();
     }
-    return member;
+    return iter;
 }
 
 Member *TurnOrder::turnTo(id id)
