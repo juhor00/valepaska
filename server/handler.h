@@ -9,6 +9,7 @@ public:
     Handler();
 
     virtual void deckEvent(Card card)=0;
+    virtual void print(std::string message)=0;
 };
 
 #endif // HANDLER_H
