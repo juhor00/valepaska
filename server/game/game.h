@@ -10,13 +10,12 @@ const int DRAW_MIN = 5;
 const int DISCARD_LIMIT = 4;
 
 
-class EventHandler;
+class Handler;
 
 class Game : public TurnOrder
 {
 public:
-    Game(EventHandler* eventHandler);
-    Game();
+    Game(Handler* handler);
     ~Game();
 
     // Players
@@ -53,7 +52,7 @@ private:
     bool isValidPlay(cards cards, int claim);
     bool isValidClaim(int claim);
 
-    EventHandler* eventHandler_;
+    Handler* handler_;
     Deck* deck_;
     CardStack* cardStack_;
     Player* inTurn_;

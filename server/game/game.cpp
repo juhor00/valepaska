@@ -1,19 +1,15 @@
 #include "game.h"
+#include "../handler.h"
 
 
-Game::Game(EventHandler *eventHandler):
-    eventHandler_(eventHandler),
+Game::Game(Handler *handler):
+    handler_(handler),
     deck_(new Deck),
     cardStack_(new CardStack),
     inTurn_(nullptr),
     lastClaim_(NULL)
 {
 
-}
-
-Game::Game():
-    Game(nullptr)
-{
 }
 
 Game::~Game()

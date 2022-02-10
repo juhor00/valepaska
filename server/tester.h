@@ -2,7 +2,8 @@
 #define TESTER_H
 
 #include "game/game.h"
-#include "eventhandler.h"
+#include "handler.h"
+#include "../utilities.h"
 #include <iostream>
 #include <iomanip>
 #include <map>
@@ -20,7 +21,7 @@ public:
         exception(){}
 };
 
-class Tester
+class Tester : public Handler
 {
 public:
     Tester();

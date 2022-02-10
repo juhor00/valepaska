@@ -1,7 +1,7 @@
 #include "tester.h"
 
 Tester::Tester():
-    game_(new Game),
+    game_(new Game(this)),
     cmdLen_(calcLongestCmd())
 {
     //createPlayers(promptPlayers());

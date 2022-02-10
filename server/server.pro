@@ -18,6 +18,7 @@ SOURCES += \
         game/groups/member.cpp \
         game/groups/player.cpp \
         game/groups/turnorder.cpp \
+        handler.cpp \
         main.cpp \
         server.cpp \
         tester.cpp
@@ -37,6 +38,7 @@ HEADERS += \
     game/groups/member.h \
     game/groups/player.h \
     game/groups/turnorder.h \
+    handler.h \
     server.h \
     tester.h
 
