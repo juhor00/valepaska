@@ -16,7 +16,7 @@ int CardCollection::size()
 bool CardCollection::hasCard(const Card card) const
 {
     return std::find_if(cards_.begin(), cards_.end(),
-                 [card](const Card other){return card.equals(other);
+                 [card](const Card other){return card == other;
                 }) != cards_.end();
 }
 

@@ -29,11 +29,6 @@ char Card::suit() const
     return suit_;
 }
 
-bool Card::equals(const Card other) const
-{
-    return rank() == other.rank() && suit() == other.suit();
-}
-
 std::string Card::toString() const
 {
     return std::string({Card::rankToChar(rank()), suit()});
@@ -41,7 +36,8 @@ std::string Card::toString() const
 
 bool Card::operator==(const Card other) const
 {
-    return rank() == other.rank();
+
+    return rank() == other.rank() && suit() == other.suit();
 }
 
 bool Card::operator<(const Card other) const

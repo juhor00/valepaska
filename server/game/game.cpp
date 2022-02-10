@@ -224,7 +224,7 @@ bool Game::isValidPlay(cards cards, int claim)
         }
     }
     if(deckPlay_.played){
-        if(not cards.at(0).equals(deckPlay_.card) || cards.size() != 1){
+        if(not (cards.at(0) == deckPlay_.card) || cards.size() != 1){
             handler_->print("You can only play the card you picked up");
             return false;
         }
