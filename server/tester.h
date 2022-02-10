@@ -50,6 +50,7 @@ private:
         {"print", "Prints the game state"},
         {"play", "Player in turn plays their cards"},
         {"deck", "Player in turn plays from deck"},
+        {"suspect", "Suspect the latest played cards"}
 
     };
     const int cmdLen_;

@@ -61,8 +61,23 @@ void Tester::mainloop()
             }
             catch(BackException&){
                 cout << RETURN << endl;
+                cout << "You must play the drawn card!" << endl;
             }
-        } else {
+        } else if(input == "suspect"){
+            try{
+                id player;
+                bool suspected = false;
+                do {
+                    cout << "Who suspects?" << endl;
+                    player = promptPlayer();
+                    suspected = game_->suspect(player);
+                } while(not suspected);
+            }
+            catch(BackException&){
+                cout << RETURN << endl;
+            }
+
+        }else {
             cout << "Invalid command" << endl;
         }
 
@@ -167,7 +182,9 @@ cards Tester::promptCards(id id)
         cards playedCards = {};
         std::vector<string> cardsStr = utils::split(input);
         for(string cardStr : cardsStr){
+            cout << "splitted: " << cardStr << endl;
             cardStr = utils::toUpper(cardStr);
+            cout << "toUpper: " << cardStr << endl;
             try{
                 Card card(cardStr);
                 playedCards.push_back(card);
