@@ -73,6 +73,15 @@ void CardCollection::clear()
     cards_.clear();
 }
 
+cards CardCollection::getAll()
+{
+    cards cards;
+    for(Card card : cards_){
+        cards.push_back(card);
+    }
+    return cards;
+}
+
 std::deque<Card>::iterator CardCollection::begin()
 {
     return cards_.begin();

@@ -28,6 +28,7 @@ protected:
     Card getLast();
     Card getFirst();
     void clear();
+    cards getAll();
     std::deque<Card>::iterator begin();
     std::deque<Card>::iterator end();
 
