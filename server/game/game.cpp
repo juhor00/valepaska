@@ -107,15 +107,12 @@ bool Game::play(Player *player, cards cards, int claimRank)
         return false;
     }
 
+
     player->remove(cards);
     drawTo(player, DRAW_MIN);
-
-
     cardStack_->add(cards);
 
-    //
-    // DO SOMETHING WITH CLAIM
-    //
+    claim_ = {claimRank, player};
 
     TurnOrder::next();
     return true;
