@@ -7,7 +7,7 @@ Game::Game(Handler *handler):
     deck_(new Deck),
     cardStack_(new CardStack),
     inTurn_(nullptr),
-    lastClaim_(0),
+    claim_({0, nullptr}),
     deckPlay_({Card(2, 'D'), false})
 {
 
@@ -41,11 +41,6 @@ std::vector<Player *> Game::getPlayers()
         players.push_back(static_cast<Player*>(member));
     }
     return players;
-}
-
-Player *Game::changeTurn()
-{
-    return static_cast<Player*>(next());
 }
 
 void Game::initGame()
@@ -92,6 +87,11 @@ void Game::print()
     std::cout << std::endl;
 }
 
+bool Game::play(id player, cards cards, int claimRank)
+{
+    return play(getPlayer(player), cards, claimRank);
+}
+
 bool Game::play(Player *player, cards cards, int claimRank)
 {
     if(not isInTurn(player)){
@@ -117,28 +117,67 @@ bool Game::play(Player *player, cards cards, int claimRank)
     // DO SOMETHING WITH CLAIM
     //
 
-    changeTurn();
+    TurnOrder::next();
     return true;
-}
-
-bool Game::play(id player, cards cards, int claimRank)
-{
-    return play(getPlayer(player), cards, claimRank);
 }
 
 void Game::deckPlay(id id)
 {
-    if(deckPlay_.played){
-        handler_->print("Already played from deck!");
-        return;
-    }
     Player* player = getPlayer(id);
+    deckPlay(player);
+
+}
+
+void Game::deckPlay(Player *player)
+{
     if(isInTurn(player)){
+        if(deckPlay_.played){
+            handler_->print("Already played from deck!");
+            return;
+        }
         Card card = deck_->getTop();
         player->add({card});
         deckPlay_ = {card, true};
         handler_->deckEvent(card);
     }
+}
+
+bool Game::suspect(id player)
+{
+    return suspect(getPlayer(player));
+}
+
+bool Game::suspect(Player *player)
+{
+    if(deck_->isEmpty()){
+        handler_->print("Cannot suspect when deck is empty");
+        return false;
+    }
+    Player* claimer = claim_.claimer;
+    if(player == claimer){
+        handler_->print("Claimer cannot suspect");
+        return false;
+    }
+
+    bool lied = false;
+    for(Card card : cardStack_->getLatest()){
+        if(card.rank() != claim_.rank){
+            lied = true;
+        }
+    }
+    if(lied){
+        // Claimer loses
+        handler_->print("Claimer lied");
+        takeAll(claimer);
+        turnTo(player);
+
+    } else {
+        // Suspecter loses
+        handler_->print("Claim was right, suspecter takes cards");
+        takeAll(player);
+        turnTo(claimer);
+    }
+    return true;
 }
 
 void Game::draw(Player *player)
@@ -164,9 +203,9 @@ void Game::drawTo(Player *player, int target)
     draw(player, amount);
 }
 
-void Game::takeLatest(Player *player)
+void Game::takeAll(Player *player)
 {
-    player->add(cardStack_->getLatest());
+    player->add(cardStack_->getAll());
 
 }
 
@@ -176,7 +215,7 @@ bool Game::isValidPlay(cards cards, int claim)
         return false;
     }
 
-    if(lastClaim_ == 2){
+    if(claim_.rank == 2){
         if(cards.size() > 1){
             return false;
         }
@@ -201,7 +240,8 @@ bool Game::isValidPlay(cards cards, int claim)
 bool Game::isValidClaim(int claim)
 {
     // No last claim
-    if(lastClaim_ == 0){
+    int lastClaim = claim_.rank;
+    if(lastClaim == 0){
         if(claim == 10 || claim == 14){
             handler_->print("10 or Ace can't be played when there are no played cards");
             return false;
@@ -217,27 +257,27 @@ bool Game::isValidClaim(int claim)
     if(claim == 2){
         return true;
     }
-    if(claim < lastClaim_){
+    if(claim < lastClaim){
         handler_->print("Can't play rank that is less than already played");
         return false;
     }
-    if(lastClaim_ == 2){
+    if(lastClaim == 2){
         handler_->print("Only 2 can be played on top of 2");
         return false;
     }
     if(claim == 10){
-        if(lastClaim_ > 9){
+        if(lastClaim > 9){
             handler_->print("10 can only be played if last played is 9 or lower");
             return false;
         }
     }
     if(claim == 14){
-        if(lastClaim_ < 11){
+        if(lastClaim < 11){
             handler_->print("Ace can only be played if last played is Jack or higher");
             return false;
         }
     }
-    if(lastClaim_ < 7){
+    if(lastClaim < 7){
         if(11 <= claim && claim <= 13){
             handler_->print("Court cards can only be played if last played is 7 or higher");
             return false;

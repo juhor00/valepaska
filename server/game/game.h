@@ -14,6 +14,11 @@ struct deckPlay {
     bool played;
 };
 
+struct claim {
+    int rank;
+    Player* claimer;
+};
+
 
 class Handler;
 
@@ -33,16 +38,16 @@ public:
     void initGame();
     void print();
 
-    bool play(Player* player, cards cards, int claimRank);
     bool play(id player, cards cards, int claimRank);
+    bool play(Player* player, cards cards, int claimRank);
 
     void deckPlay(id player);
-    void deckPlayClaim(int rank);
+    void deckPlay(Player* player);
+
+    bool suspect(id player);
+    bool suspect(Player* player);
 
 private:
-
-
-    Player *changeTurn();
 
     // Deck
     void draw(Player* player);
@@ -51,7 +56,7 @@ private:
     Card playFromDeck(Player* player);
 
     // CardStack
-    void takeLatest(Player* player);
+    void takeAll(Player* player);
 
     // Game
     bool isValidPlay(cards cards, int claim);
@@ -61,7 +66,7 @@ private:
     Deck* deck_;
     CardStack* cardStack_;
     Player* inTurn_;
-    int lastClaim_;
+    struct claim claim_;
     struct deckPlay deckPlay_;
 };
 
