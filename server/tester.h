@@ -1,7 +1,6 @@
 #ifndef TESTER_H
 #define TESTER_H
 
-#include "game/game.h"
 #include "handler.h"
 #include "../utilities.h"
 #include <iostream>
@@ -26,6 +25,8 @@ class Tester : public Handler
 public:
     Tester();
     ~Tester();
+
+    void deckEvent(Card card) override;
 
 private:
 

@@ -15,6 +15,11 @@ Tester::~Tester()
     delete game_;
 }
 
+void Tester::deckEvent(Card card)
+{
+
+}
+
 void Tester::mainloop()
 {
     string input;

@@ -7,7 +7,7 @@ Game::Game(Handler *handler):
     deck_(new Deck),
     cardStack_(new CardStack),
     inTurn_(nullptr),
-    lastClaim_(NULL)
+    lastClaim_(0)
 {
 
 }
@@ -124,6 +124,13 @@ void Game::play(id player, cards cards, int claimRank)
     play(getPlayer(player), cards, claimRank);
 }
 
+void Game::deckPlay(id player)
+{
+    if(isInTurn(player)){
+        handler_->deckEvent(deck_->getTop());
+    }
+}
+
 void Game::draw(Player *player)
 {
     draw(player, 1);
@@ -174,7 +181,7 @@ bool Game::isValidPlay(cards cards, int claim)
 bool Game::isValidClaim(int claim)
 {
     // No last claim
-    if(lastClaim_ == NULL){
+    if(lastClaim_ == 0){
         if(claim == 10 || claim == 14){
             return false;
         }
