@@ -41,7 +41,7 @@ std::string Card::toString() const
 
 bool Card::operator==(const Card other) const
 {
-    return equals(other);
+    return rank() == other.rank();
 }
 
 bool Card::operator<(const Card other) const
