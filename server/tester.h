@@ -48,8 +48,8 @@ private:
         {"?", "Prints all commands and their description"},
         {"quit", "Quits the program"},
         {"print", "Prints the game state"},
-        {"play", "Prompts for the player and cards to be played"},
-        {"deck", "Prompts for the player to play from deck"},
+        {"play", "Player in turn plays their cards"},
+        {"deck", "Player in turn plays from deck"},
 
     };
     const int cmdLen_;
