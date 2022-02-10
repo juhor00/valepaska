@@ -27,6 +27,7 @@ public:
     ~Tester();
 
     void deckEvent(Card card) override;
+    void print(std::string message) override;
 
 private:
 
@@ -53,6 +54,7 @@ private:
     };
     const int cmdLen_;
     inline static const string BACK = "Go back by typing \"back\"";
+    inline static const string RETURN = "Returning...";
 };
 
 #endif // TESTER_H

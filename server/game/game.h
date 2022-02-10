@@ -9,6 +9,11 @@
 const int DRAW_MIN = 5;
 const int DISCARD_LIMIT = 4;
 
+struct deckPlay {
+    Card card;
+    bool played;
+};
+
 
 class Handler;
 
@@ -28,8 +33,8 @@ public:
     void initGame();
     void print();
 
-    void play(Player* player, cards cards, int claimRank);
-    void play(id player, cards cards, int claimRank);
+    bool play(Player* player, cards cards, int claimRank);
+    bool play(id player, cards cards, int claimRank);
 
     void deckPlay(id player);
     void deckPlayClaim(int rank);
@@ -57,6 +62,7 @@ private:
     CardStack* cardStack_;
     Player* inTurn_;
     int lastClaim_;
+    struct deckPlay deckPlay_;
 };
 
 #endif // GAME_H

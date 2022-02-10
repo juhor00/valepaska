@@ -17,7 +17,18 @@ Tester::~Tester()
 
 void Tester::deckEvent(Card card)
 {
+    string input;
+    bool played = false;
+    do {
+        cout << "You picked up " << card.toString() << " from deck" << endl;
+        played = game_->play(game_->getTurn()->getId(), {card}, promptClaim());
+    }  while(not played);
 
+}
+
+void Tester::print(string message)
+{
+    std::cout << message << std::endl;
 }
 
 void Tester::mainloop()
@@ -40,10 +51,17 @@ void Tester::mainloop()
                 game_->play(player, cards, promptClaim());
             }
             catch(BackException&){
-                cout << "Returning..." << endl;
+                cout << RETURN << endl;
             }
 
-
+        } else if(input == "deck"){
+            id player = game_->getTurn()->getId();
+            try{
+                game_->deckPlay(player);
+            }
+            catch(BackException&){
+                cout << RETURN << endl;
+            }
         } else {
             cout << "Invalid command" << endl;
         }
@@ -140,6 +158,9 @@ cards Tester::promptCards(id id)
         cout << "Choose cards separated by space: > ";
 
         getline(cin, input);
+
+        cout << "Input: " << input << endl;
+
         if(input == "back"){
             throw BackException();
         }
