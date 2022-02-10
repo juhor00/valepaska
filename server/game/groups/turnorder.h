@@ -29,6 +29,9 @@ public:
     bool isInTurn(Member* member);
     bool isInTurn(id id);
 
+    Member* turnTo(Member* member);
+    Member* turnTo(id id);
+
 private:
 
     void addToOrder(Member* member);

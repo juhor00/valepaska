@@ -93,6 +93,20 @@ bool TurnOrder::isInTurn(id id)
     return turn_->member->getId() == id;
 }
 
+Member *TurnOrder::turnTo(Member *member)
+{
+    while(member != getTurn()){
+        member = next();
+    }
+    return member;
+}
+
+Member *TurnOrder::turnTo(id id)
+{
+    Member* member = getMember(id);
+    return turnTo(member);
+}
+
 void TurnOrder::addToOrder(Member *member)
 {
     if(turn_ == nullptr){
