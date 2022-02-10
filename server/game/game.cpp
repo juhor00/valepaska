@@ -4,7 +4,9 @@
 Game::Game(EventHandler *eventHandler):
     eventHandler_(eventHandler),
     deck_(new Deck),
-    cardStack_(new CardStack)
+    cardStack_(new CardStack),
+    inTurn_(nullptr),
+    lastClaim_(NULL)
 {
 
 }
@@ -104,6 +106,9 @@ void Game::play(Player *player, cards cards, int claimRank)
     if(not Card::isValidRank(claimRank)){
         return;
     }
+    if(not isValidPlay(cards, claimRank)){
+        return;
+    }
 
     player->remove(cards);
     drawTo(player, DRAW_MIN);
@@ -149,5 +154,66 @@ void Game::drawTo(Player *player, int target)
 void Game::takeLatest(Player *player)
 {
     player->add(cardStack_->getLatest());
+
+}
+
+bool Game::isValidPlay(cards cards, int claim)
+{
+    if(0 < cards.size() && cards.size() <= DISCARD_LIMIT){
+        if(lastClaim_ == 2){
+            if(cards.size() > 1){
+                return false;
+            }
+        }
+        if(claim == 10 || claim == 14){
+            if(cards.size() > 1){
+                return false;
+            }
+        }
+        return isValidClaim(claim);
+    }
+    return false;
+}
+
+bool Game::isValidClaim(int claim)
+{
+    // No last claim
+    if(lastClaim_ == NULL){
+        if(claim == 10 || claim == 14){
+            return false;
+        }
+        if(not deck_->isEmpty()){
+            if(claim > 10){
+                return false;
+            }
+        }
+        return true;
+    }
+    if(claim == 2){
+        return true;
+    }
+    if(claim < lastClaim_){
+        return false;
+    }
+    if(lastClaim_ == 2){
+        return false;
+    }
+    if(claim == 10){
+        if(lastClaim_ > 9){
+            return false;
+        }
+    }
+    if(claim == 14){
+        if(lastClaim_ < 11){
+            return false;
+        }
+    }
+    if(lastClaim_ < 7){
+        if(11 <= claim && claim <= 13){
+            return false;
+        }
+    }
+    return true;
+
 
 }

@@ -7,6 +7,7 @@
 #include "cards/cardstack.h"
 
 const int DRAW_MIN = 5;
+const int DISCARD_LIMIT = 4;
 
 
 class EventHandler;
@@ -43,16 +44,20 @@ private:
     void draw(Player* player);
     void draw(Player* player, int amount);
     void drawTo(Player* player, int target);
-
     Card playFromDeck(Player* player);
 
     // CardStack
     void takeLatest(Player* player);
 
+    // Game
+    bool isValidPlay(cards cards, int claim);
+    bool isValidClaim(int claim);
+
     EventHandler* eventHandler_;
     Deck* deck_;
     CardStack* cardStack_;
-    Player* inTurn;
+    Player* inTurn_;
+    int lastClaim_;
 };
 
 #endif // GAME_H
