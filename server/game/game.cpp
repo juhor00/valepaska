@@ -6,7 +6,6 @@ Game::Game(Handler *handler):
     handler_(handler),
     deck_(new Deck),
     cardStack_(new CardStack),
-    inTurn_(nullptr),
     claim_({0, nullptr}),
     deckPlay_({Card(2, 'D'), false})
 {

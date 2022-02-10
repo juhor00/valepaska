@@ -65,7 +65,6 @@ private:
     Handler* handler_;
     Deck* deck_;
     CardStack* cardStack_;
-    Player* inTurn_;
     struct claim claim_;
     struct deckPlay deckPlay_;
 };
