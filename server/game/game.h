@@ -16,9 +16,11 @@ struct deckPlay {
 
 struct claim {
     int rank;
+    int amount;
     Player* claimer;
 };
 
+using discardID = int;
 
 class Handler;
 
@@ -47,7 +49,7 @@ public:
     bool suspect(id player);
     bool suspect(Player* player);
 
-    bool discard();
+    bool discard(discardID id);
 
 private:
 
@@ -60,7 +62,6 @@ private:
     // CardStack
     void takeAll(Player* player);
     bool toDiscard();
-    void pendingDiscard();
 
     // Game
     bool isValidPlay(cards cards, int claim);
@@ -69,8 +70,9 @@ private:
     Handler* handler_;
     Deck* deck_;
     CardStack* cardStack_;
-    struct claim claim_;
+    std::vector<struct claim> claims_;
     struct deckPlay deckPlay_;
+    discardID discardID_;
 };
 
 #endif // GAME_H

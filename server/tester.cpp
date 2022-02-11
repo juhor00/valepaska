@@ -31,9 +31,11 @@ void Tester::print(string message)
     std::cout << message << std::endl;
 }
 
-void Tester::pendingDiscard()
+void Tester::pendingDiscard(discardID id)
 {
     cout << "Pending discard" << endl;
+    game_->discard(id);
+    cout << "Discarded" << endl;
 }
 
 void Tester::mainloop()

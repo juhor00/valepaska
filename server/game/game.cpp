@@ -6,8 +6,9 @@ Game::Game(Handler *handler):
     handler_(handler),
     deck_(new Deck),
     cardStack_(new CardStack),
-    claim_({0, nullptr}),
-    deckPlay_({Card(2, 'D'), false})
+    claims_({{0, 0, nullptr}}),
+    deckPlay_({Card(2, 'D'), false}),
+    discardID_(0)
 {
 
 }
@@ -106,13 +107,19 @@ bool Game::play(Player *player, cards cards, int claimRank)
         return false;
     }
 
-
+    // Cards
     player->remove(cards);
     drawTo(player, DRAW_MIN);
     cardStack_->add(cards);
 
-    claim_ = {claimRank, player};
+    // Claim
+    claims_.push_back({claimRank, (int) cards.size(), player});
 
+    // Discard
+    if(toDiscard()){
+        handler_->pendingDiscard(discardID_++);
+    }
+    // Turn
     TurnOrder::next();
     return true;
 }
@@ -149,7 +156,8 @@ bool Game::suspect(Player *player)
         handler_->print("Cannot suspect when deck is empty");
         return false;
     }
-    Player* claimer = claim_.claimer;
+    claim claim = claims_.back();
+    Player* claimer = claim.claimer;
     if(player == claimer){
         handler_->print("Claimer cannot suspect");
         return false;
@@ -157,7 +165,7 @@ bool Game::suspect(Player *player)
 
     bool lied = false;
     for(Card card : cardStack_->getLatest()){
-        if(card.rank() != claim_.rank){
+        if(card.rank() != claim.rank){
             lied = true;
         }
     }
@@ -173,6 +181,21 @@ bool Game::suspect(Player *player)
         takeAll(player);
         turnTo(claimer);
     }
+    return true;
+}
+
+bool Game::discard(discardID id)
+{
+    if(id != discardID_){
+        return false;
+    }
+    if(not toDiscard()){
+        return false;
+    }
+    cardStack_->clear();
+    turnTo(claims_.back().claimer);
+
+    // Handle win
     return true;
 }
 
@@ -207,12 +230,38 @@ void Game::takeAll(Player *player)
 
 bool Game::toDiscard()
 {
+    if(cardStack_->isEmpty()){
+        return false;
+    }
 
-}
+    // Discard cards
+    claim claim = claims_.back();
+    if(claim.rank == 10 || claim.rank == 14){
+        return true;
+    }
+    // Never discard 2's
+    if(claim.rank == 2){
+        return false;
+    }
+    if(cardStack_->size() < DISCARD_LIMIT){
+        return false;
+    }
 
-void Game::pendingDiscard()
-{
-    handler_->pendingDiscard();
+
+    int count = claim.amount;
+    for(struct claim& oldClaim : std::vector<struct claim>({claims_.end()-1, claims_.begin()})){
+        if(oldClaim.rank == claim.rank){
+            count += oldClaim.amount;
+        } else {
+            break;
+        }
+    }
+    // DISCARD_LIMIT amount of same claims
+    if(count >= DISCARD_LIMIT){
+        return true;
+    }
+    return false;
+
 }
 
 bool Game::isValidPlay(cards cards, int claim)
@@ -221,7 +270,7 @@ bool Game::isValidPlay(cards cards, int claim)
         return false;
     }
 
-    if(claim_.rank == 2){
+    if(claims_.back().rank == 2){
         if(cards.size() > 1){
             return false;
         }
@@ -239,6 +288,10 @@ bool Game::isValidPlay(cards cards, int claim)
         }
     }
 
+    if(toDiscard()){
+        return false;
+    }
+
 
     return isValidClaim(claim);
 }
@@ -246,7 +299,7 @@ bool Game::isValidPlay(cards cards, int claim)
 bool Game::isValidClaim(int claim)
 {
     // No last claim
-    int lastClaim = claim_.rank;
+    int lastClaim = claims_.back().rank;
     if(lastClaim == 0){
         if(claim == 10 || claim == 14){
             handler_->print("10 or Ace can't be played when there are no played cards");

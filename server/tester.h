@@ -28,7 +28,7 @@ public:
 
     void deckEvent(Card card) override;
     void print(std::string message) override;
-    void pendingDiscard() override;
+    void pendingDiscard(discardID id) override;
 
 private:
 
