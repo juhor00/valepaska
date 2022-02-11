@@ -193,6 +193,8 @@ bool Game::discard(discardID id)
         return false;
     }
     cardStack_->clear();
+    claims_ = {{0, 0, nullptr}};
+
     turnTo(claims_.back().claimer);
 
     // Handle win
