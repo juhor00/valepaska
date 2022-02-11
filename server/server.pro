@@ -18,7 +18,6 @@ SOURCES += \
         game/groups/member.cpp \
         game/groups/player.cpp \
         game/groups/turnorder.cpp \
-        handler.cpp \
         main.cpp \
         server.cpp \
         tester.cpp
