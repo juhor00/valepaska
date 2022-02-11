@@ -2,16 +2,16 @@
 #define CARDCOLLECTION_H
 
 #include "card.h"
-#include <deque>
 #include <iostream>
-#include <vector>
+#include <set>
 
-using cards = std::vector<Card>;
+using cards = std::set<Card>;
 
 class CardCollection
 {
 public:
     CardCollection();
+    virtual ~CardCollection();
 
 
     int size();
@@ -21,16 +21,10 @@ public:
 
 protected:
 
-    void moveTo(CardCollection* other, Card card);
-    void moveAllTo(CardCollection* other);
-    void add(const Card card);
-    void remove(const Card card);
-    Card getLast();
-    Card getFirst();
+    virtual bool add(const Card card);
+    virtual bool remove(const Card card);
     void clear();
     cards getAll();
-    cards::iterator begin();
-    cards::iterator end();
 
 private:
 

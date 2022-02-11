@@ -9,8 +9,8 @@ class CardStack : public CardCollection
 public:
     CardStack();
 
-    void add(Card card);
-    void add(cards cards);
+    bool add(Card card) override;
+    bool add(cards cards);
     void clear();
 
     cards getLatest();

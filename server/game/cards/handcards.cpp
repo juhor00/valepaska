@@ -6,28 +6,34 @@ HandCards::HandCards():
 
 }
 
-void HandCards::add(Card card)
+bool HandCards::add(Card card)
 {
-    CardCollection::add(card);
+    return CardCollection::add(card);
 }
 
-void HandCards::add(cards cards)
+bool HandCards::add(cards cards)
 {
     for(Card card : cards){
-        add(card);
+        if(not add(card)){
+            return false;
+        }
     }
+    return true;
 }
 
-void HandCards::remove(Card card)
+bool HandCards::remove(Card card)
 {
-    CardCollection::remove(card);
+    return CardCollection::remove(card);
 }
 
-void HandCards::remove(cards cards)
+bool HandCards::remove(cards cards)
 {
     for(Card card : cards){
-        remove(card);
+        if(not remove(card)){
+            return false;
+        }
     }
+    return true;
 }
 
 bool HandCards::hasCards(cards cards)
@@ -38,13 +44,6 @@ bool HandCards::hasCards(cards cards)
         }
     }
     return true;
-}
-
-void HandCards::moveTo(CardCollection *other, cards cards)
-{
-    for(Card card : cards){
-        CardCollection::moveTo(other, card);
-    }
 }
 
 void HandCards::clear()

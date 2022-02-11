@@ -15,8 +15,12 @@ public:
     Card getTop();
     void generateFull();
     void shuffle();
+    bool add(const Card card) override;
+    bool remove(const Card card) override;
 
 private:
+
+    std::vector<Card> cards_;
 
 };
 

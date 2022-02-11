@@ -3,14 +3,15 @@
 
 
 Deck::Deck():
-    CardCollection()
+    CardCollection(),
+    cards_({})
 {
 
 }
 
 Card Deck::getTop()
 {
-    Card last = getLast();
+    Card last = cards_.back();
     remove(last);
     return last;
 }
@@ -38,5 +39,23 @@ void Deck::shuffle()
 {
     std::default_random_engine rng;
     rng.seed(std::chrono::system_clock::now().time_since_epoch().count());
-    std::shuffle(begin(), end(), rng);
+    std::shuffle(cards_.begin(), cards_.end(), rng);
+}
+
+bool Deck::add(const Card card)
+{
+    if(CardCollection::add(card)){
+        cards_.push_back(card);
+        return true;
+    }
+    return false;
+}
+
+bool Deck::remove(const Card card)
+{
+    if(CardCollection::remove(card)){
+        cards_.erase(std::find(cards_.begin(), cards_.end(), card));
+        return true;
+    }
+    return false;
 }

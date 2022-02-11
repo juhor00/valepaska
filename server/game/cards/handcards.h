@@ -8,12 +8,11 @@ class HandCards : public CardCollection
 public:
     HandCards();
 
-    void add(Card card);
-    void add(cards cards);
-    void remove(Card card);
-    void remove(cards cards);
+    bool add(Card card) override;
+    bool add(cards cards);
+    bool remove(Card card) override;
+    bool remove(cards cards);
     bool hasCards(cards cards);
-    void moveTo(CardCollection* other, cards cards);
     void clear();
 };
 

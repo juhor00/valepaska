@@ -8,6 +8,11 @@ CardCollection::CardCollection():
 
 }
 
+CardCollection::~CardCollection()
+{
+
+}
+
 int CardCollection::size()
 {
     return cards_.size();
@@ -33,39 +38,18 @@ void CardCollection::print()
     }
 }
 
-void CardCollection::moveTo(CardCollection *other, Card card)
+bool CardCollection::add(const Card card)
 {
-    other->add(card);
-    remove(card);
+    return cards_.insert(card).second;
 }
 
-void CardCollection::moveAllTo(CardCollection *other)
-{
-    for(Card card : cards_){
-            moveTo(other, card);
-        }
-}
-
-void CardCollection::add(const Card card)
-{
-    cards_.push_back(card);
-}
-
-void CardCollection::remove(const Card card)
+bool CardCollection::remove(const Card card)
 {
     if(hasCard(card)){
-        cards_.erase(std::find(cards_.begin(), cards_.end(), card));
+        cards_.erase(card);
+        return true;
     }
-}
-
-Card CardCollection::getLast()
-{
-    return cards_.back();
-}
-
-Card CardCollection::getFirst()
-{
-    return cards_.front();
+    return false;
 }
 
 void CardCollection::clear()
@@ -76,14 +60,4 @@ void CardCollection::clear()
 cards CardCollection::getAll()
 {
     return cards_;
-}
-
-cards::iterator CardCollection::begin()
-{
-    return cards_.begin();
-}
-
-cards::iterator CardCollection::end()
-{
-    return cards_.end();
 }

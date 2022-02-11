@@ -7,17 +7,20 @@ CardStack::CardStack():
 
 }
 
-void CardStack::add(Card card)
+bool CardStack::add(Card card)
 {
-    add(cards({card}));
+    return add(cards({card}));
 }
 
-void CardStack::add(cards cards)
+bool CardStack::add(cards cards)
 {
     for(Card card : cards){
-        CardCollection::add(card);
+        if(not CardCollection::add(card)){
+            return false;
+        }
     }
     latestCards_ = cards;
+    return true;
 }
 
 void CardStack::clear()

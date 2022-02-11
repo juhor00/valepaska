@@ -186,7 +186,7 @@ void Game::draw(Player *player, int amount)
     cards cards;
     for(int i=0; i<amount; i++){
         if(not deck_->isEmpty()){
-            cards.push_back(deck_->getTop());
+            cards.insert(deck_->getTop());
         }
 
     }
@@ -223,7 +223,7 @@ bool Game::isValidPlay(cards cards, int claim)
         }
     }
     if(deckPlay_.played){
-        if(not (cards.at(0) == deckPlay_.card) || cards.size() != 1){
+        if(not (*cards.begin() == deckPlay_.card) || cards.size() != 1){
             handler_->print("You can only play the card you picked up");
             return false;
         }

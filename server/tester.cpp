@@ -187,7 +187,7 @@ cards Tester::promptCards(id id)
             cout << "toUpper: " << cardStr << endl;
             try{
                 Card card(cardStr);
-                playedCards.push_back(card);
+                playedCards.insert(card);
             }
             catch(InvalidCardException& e){
                 cout << e.what() << endl;
