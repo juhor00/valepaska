@@ -205,6 +205,16 @@ void Game::takeAll(Player *player)
 
 }
 
+bool Game::toDiscard()
+{
+
+}
+
+void Game::pendingDiscard()
+{
+    handler_->pendingDiscard();
+}
+
 bool Game::isValidPlay(cards cards, int claim)
 {
     if(not(0 < cards.size() && cards.size() <= DISCARD_LIMIT)){

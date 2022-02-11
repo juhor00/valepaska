@@ -47,6 +47,8 @@ public:
     bool suspect(id player);
     bool suspect(Player* player);
 
+    bool discard();
+
 private:
 
     // Deck
@@ -57,6 +59,8 @@ private:
 
     // CardStack
     void takeAll(Player* player);
+    bool toDiscard();
+    void pendingDiscard();
 
     // Game
     bool isValidPlay(cards cards, int claim);

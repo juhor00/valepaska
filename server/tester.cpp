@@ -31,6 +31,11 @@ void Tester::print(string message)
     std::cout << message << std::endl;
 }
 
+void Tester::pendingDiscard()
+{
+    cout << "Pending discard" << endl;
+}
+
 void Tester::mainloop()
 {
     string input;
@@ -174,17 +179,13 @@ cards Tester::promptCards(id id)
 
         getline(cin, input);
 
-        cout << "Input: " << input << endl;
-
         if(input == "back"){
             throw BackException();
         }
         cards playedCards = {};
         std::vector<string> cardsStr = utils::split(input);
         for(string cardStr : cardsStr){
-            cout << "splitted: " << cardStr << endl;
             cardStr = utils::toUpper(cardStr);
-            cout << "toUpper: " << cardStr << endl;
             try{
                 Card card(cardStr);
                 playedCards.insert(card);
