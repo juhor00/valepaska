@@ -6,7 +6,7 @@ Game::Game(Handler *handler):
     handler_(handler),
     deck_(new Deck),
     cardStack_(new CardStack),
-    claims_({{0, 0, nullptr}}),
+    claims_({}),
     deckPlay_({Card(2, 'D'), false}),
     discardID_(0)
 {
@@ -115,12 +115,13 @@ bool Game::play(Player *player, cards cards, int claimRank)
     // Claim
     claims_.push_back({claimRank, (int) cards.size(), player});
 
-    // Discard
-    if(toDiscard()){
-        handler_->pendingDiscard(discardID_++);
-    }
     // Turn
     TurnOrder::next();
+
+    // Discard
+    if(toDiscard()){
+        handler_->pendingDiscard(++discardID_);
+    }
     return true;
 }
 
@@ -193,9 +194,8 @@ bool Game::discard(discardID id)
         return false;
     }
     cardStack_->clear();
-    claims_ = {{0, 0, nullptr}};
-
     turnTo(claims_.back().claimer);
+    claims_.clear();
 
     // Handle win
     return true;
@@ -271,10 +271,11 @@ bool Game::isValidPlay(cards cards, int claim)
     if(not(0 < cards.size() && cards.size() <= DISCARD_LIMIT)){
         return false;
     }
-
-    if(claims_.back().rank == 2){
-        if(cards.size() > 1){
-            return false;
+    if(not claims_.empty()){
+        if(claims_.back().rank == 2){
+            if(cards.size() > 1){
+                return false;
+            }
         }
     }
     if(claim == 10 || claim == 14 || claim == 2){
@@ -301,8 +302,7 @@ bool Game::isValidPlay(cards cards, int claim)
 bool Game::isValidClaim(int claim)
 {
     // No last claim
-    int lastClaim = claims_.back().rank;
-    if(lastClaim == 0){
+    if(claims_.empty()){
         if(claim == 10 || claim == 14){
             handler_->print("10 or Ace can't be played when there are no played cards");
             return false;
@@ -315,6 +315,9 @@ bool Game::isValidClaim(int claim)
         }
         return true;
     }
+
+    int lastClaim = claims_.back().rank;
+
     if(claim == 2){
         return true;
     }
