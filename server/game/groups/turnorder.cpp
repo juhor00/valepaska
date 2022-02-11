@@ -95,6 +95,9 @@ bool TurnOrder::isInTurn(id id)
 
 Member *TurnOrder::turnTo(Member *member)
 {
+    if(not hasMember(member)){
+        throw TurnException("No member: " + std::to_string(member->getId()));
+    }
     Member* iter = member;
     while(member != getTurn()){
         iter = next();
@@ -124,6 +127,9 @@ void TurnOrder::addToOrder(Member *member)
 
 void TurnOrder::removeFromOrder(Member *member)
 {
+    if(not hasMember(member)){
+        throw TurnException("No member: " + std::to_string(member->getId()));
+    }
     Node* iter = turn_;
 
     // iter until iter->next is to be removed

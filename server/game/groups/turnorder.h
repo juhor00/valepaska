@@ -12,6 +12,23 @@ struct Node {
     Node* next;
 };
 
+class TurnException : public std::exception {
+public:
+    TurnException(std::string message):
+        message_("TurnException: " + message){}
+
+    TurnException():
+        TurnException("Exception"){}
+
+    virtual const char* what() const throw(){
+        return message_.c_str();
+    }
+
+private:
+    std::string message_;
+
+};
+
 class TurnOrder : public Group
 {
 public:
