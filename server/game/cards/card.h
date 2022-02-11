@@ -4,7 +4,6 @@
 
 #include <string>
 
-
 class InvalidCardException : public std::exception {
 public:
     InvalidCardException():
@@ -54,6 +53,14 @@ private:
 
     static char rankToChar(int rank);
 
+};
+
+template<> struct std::hash<Card> {
+    std::size_t operator()(const Card& c) const noexcept{
+        std::size_t h1 = std::hash<int>{}(c.rank());
+        std::size_t h2 = std::hash<char>{}(c.suit());
+        return h1 ^ (h2 << 1);
+    }
 };
 
 #endif // CARD_H

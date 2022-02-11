@@ -3,9 +3,9 @@
 
 #include "card.h"
 #include <iostream>
-#include <set>
+#include <unordered_set>
 
-using cards = std::set<Card>;
+using cards = std::unordered_set<Card>;
 
 class CardCollection
 {
