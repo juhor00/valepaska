@@ -5,6 +5,11 @@ Member::Member(id id):
 {
 }
 
+Member::~Member()
+{
+
+}
+
 id Member::getId()
 {
     return id_;

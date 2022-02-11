@@ -30,14 +30,14 @@ bool Game::add(Member *member)
 
 Player *Game::getPlayer(id id)
 {
-    return static_cast<Player*>(getMember(id));
+    return dynamic_cast<Player*>(getMember(id));
 }
 
 std::vector<Player *> Game::getPlayers()
 {
     std::vector<Player*> players;
     for(Member* member : getMembers()){
-        players.push_back(static_cast<Player*>(member));
+        players.push_back(dynamic_cast<Player*>(member));
     }
     return players;
 }
@@ -53,7 +53,7 @@ void Game::initGame()
     TurnOrder::shuffle();
 
     for(Member* member : getMembersInOrder()){
-        Player* player = static_cast<Player*>(member);
+        Player* player = dynamic_cast<Player*>(member);
         player->clear();
         drawTo(player, DRAW_MIN);
     }
@@ -73,7 +73,7 @@ void Game::print()
     std::cout << std::endl;
     std::cout << "--Players--" << std::endl;
     for(Member* member : getMembersInOrder()){
-        Player* player = static_cast<Player*>(member);
+        Player* player = dynamic_cast<Player*>(member);
         if(isInTurn(player)){
             std::cout << "[+] ";
         } else {

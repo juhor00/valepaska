@@ -7,6 +7,7 @@ class Member
 {
 public:
     Member(id id);
+    virtual  ~Member();
     id getId();
 
 private:
