@@ -80,10 +80,7 @@ int Card::getRankFromStr(std::string s)
         rank = 14;
         break;
     default:
-        try {rank = std::stoi(&rankC);}
-        catch(std::exception& e){
-            return -1;
-        }
+        rank = ((int) rankC) - '0';
 
     }
     return rank;
