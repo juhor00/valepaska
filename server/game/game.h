@@ -5,6 +5,7 @@
 #include "groups/player.h"
 #include "cards/deck.h"
 #include "cards/cardstack.h"
+#include <map>
 
 const int DRAW_MIN = 5;
 const int DISCARD_LIMIT = 4;
@@ -51,6 +52,8 @@ public:
 
     bool discard(discardID id);
 
+    void checkWin();
+
 private:
 
     // Deck
@@ -73,6 +76,7 @@ private:
     std::vector<struct claim> claims_;
     struct deckPlay deckPlay_;
     discardID discardID_;
+    std::map<int, Player*> winners_;
 };
 
 #endif // GAME_H

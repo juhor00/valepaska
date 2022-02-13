@@ -8,7 +8,8 @@ Game::Game(Handler *handler):
     cardStack_(new CardStack),
     claims_({}),
     deckPlay_({Card(2, 'D'), false}),
-    discardID_(0)
+    discardID_(0),
+    winners_({})
 {
 
 }
@@ -52,6 +53,7 @@ void Game::initGame()
 
     // Players
     TurnOrder::shuffle();
+    winners_.clear();
 
     for(Member* member : getMembersInOrder()){
         Player* player = dynamic_cast<Player*>(member);
@@ -85,6 +87,13 @@ void Game::print()
     }
     std::cout << "--Players--" << std::endl;
     std::cout << std::endl;
+    if(winners_.empty()){
+        return;
+    }
+    std::cout << "--Winners--" << std::endl;
+    for(auto& winner : winners_){
+        std::cout << winner.first << ") Player " << winner.second->getId() << std::endl;
+    }
 }
 
 bool Game::play(id player, cards cards, int claimRank)
@@ -106,6 +115,9 @@ bool Game::play(Player *player, cards cards, int claimRank)
     if(not isValidPlay(cards, claimRank)){
         return false;
     }
+
+    // Check last winner before play
+    checkWin();
 
     // Cards
     player->remove(cards);
@@ -201,6 +213,31 @@ bool Game::discard(discardID id)
     return true;
 }
 
+void Game::checkWin()
+{
+    // Deck must be empty
+    if(not deck_->isEmpty()){
+        return;
+    }
+
+    Player* player;
+
+    if(claims_.empty()){
+        // No claims: player who last discarded
+        player = dynamic_cast<Player*>(this->getTurn());
+    } else {
+        // Last claimer
+        player = claims_.back().claimer;
+    }
+
+    if(player->getCardCount() != 0){
+        return;
+    }
+    // Won
+    this->removeFromOrder(player);
+    winners_.insert({(int) winners_.size()+1, player});
+}
+
 void Game::draw(Player *player)
 {
     draw(player, 1);
@@ -232,7 +269,7 @@ void Game::takeAll(Player *player)
 
 bool Game::toDiscard()
 {
-    if(cardStack_->isEmpty()){
+    if(cardStack_->isEmpty() or claims_.empty()){
         return false;
     }
 
@@ -251,7 +288,9 @@ bool Game::toDiscard()
 
 
     int count = claim.amount;
-    for(struct claim& oldClaim : std::vector<struct claim>({claims_.end()-1, claims_.begin()})){
+    std::vector<struct claim> oldClaims = std::vector<struct claim>(claims_.begin(), claims_.end()-1);
+    std::reverse(oldClaims.begin(), oldClaims.end());
+    for(struct claim& oldClaim : oldClaims){
         if(oldClaim.rank == claim.rank){
             count += oldClaim.amount;
         } else {
