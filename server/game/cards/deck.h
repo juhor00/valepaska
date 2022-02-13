@@ -6,7 +6,7 @@
 #include <random>
 #include <chrono>
 
-const int DECK_SIZE = 52;
+const int DECK_SIZE = 12;
 
 class Deck : public CardCollection
 {

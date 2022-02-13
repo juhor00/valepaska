@@ -287,16 +287,19 @@ bool Game::toDiscard()
     }
 
 
-    int count = claim.amount;
-    std::vector<struct claim> oldClaims = std::vector<struct claim>(claims_.begin(), claims_.end()-1);
-    std::reverse(oldClaims.begin(), oldClaims.end());
-    for(struct claim& oldClaim : oldClaims){
+    int count = 0;
+    auto iter = claims_.rbegin();
+
+    while(iter != claims_.rend()){
+        struct claim oldClaim = *iter;
         if(oldClaim.rank == claim.rank){
             count += oldClaim.amount;
         } else {
             break;
         }
+        iter++;
     }
+
     // DISCARD_LIMIT amount of same claims
     if(count >= DISCARD_LIMIT){
         return true;

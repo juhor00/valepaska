@@ -5,7 +5,7 @@ Tester::Tester():
     cmdLen_(calcLongestCmd())
 {
     //createPlayers(promptPlayers());
-    createPlayers(4);
+    createPlayers(2);
     game_->initGame();
     mainloop();
 }
@@ -34,8 +34,11 @@ void Tester::print(string message)
 void Tester::pendingDiscard(discardID id)
 {
     cout << "Pending discard" << endl;
-    game_->discard(id);
-    cout << "Discarded" << endl;
+    if(game_->discard(id)){
+        cout << "Discarded" << endl;
+    } else {
+        cout << "Could not discard" << endl;
+    }
 }
 
 void Tester::mainloop()
@@ -84,7 +87,7 @@ void Tester::mainloop()
                 cout << RETURN << endl;
             }
 
-        }else {
+        } else {
             cout << "Invalid command" << endl;
         }
 
