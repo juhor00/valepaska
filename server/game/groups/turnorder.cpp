@@ -1,7 +1,8 @@
 #include "turnorder.h"
 
 TurnOrder::TurnOrder():
-    turn_(nullptr)
+    turn_(nullptr),
+    order_({})
 {
 
 }
@@ -95,7 +96,7 @@ bool TurnOrder::isInTurn(id id)
 
 Member *TurnOrder::turnTo(Member *member)
 {
-    if(not hasMember(member)){
+    if(not hasMemberInOrder(member)){
         throw TurnException("No member: " + std::to_string(member->getId()));
     }
     Member* iter = member;
@@ -113,6 +114,7 @@ Member *TurnOrder::turnTo(id id)
 
 void TurnOrder::addToOrder(Member *member)
 {
+    order_.insert(member);
     if(turn_ == nullptr){
         turn_ = new Node({member, nullptr});
         turn_->next = turn_;
@@ -127,9 +129,10 @@ void TurnOrder::addToOrder(Member *member)
 
 void TurnOrder::removeFromOrder(Member *member)
 {
-    if(not hasMember(member)){
-        throw TurnException("No member: " + std::to_string(member->getId()));
+    if(not hasMemberInOrder(member)){
+        throw TurnException("No member : " + std::to_string(member->getId()));
     }
+    order_.erase(member);
     Node* iter = turn_;
 
     // iter until iter->next is to be removed
@@ -138,8 +141,19 @@ void TurnOrder::removeFromOrder(Member *member)
     }
 
     Node* after = iter->next->next;
+
+    // if member to remove is in turn, change to next
+    if(member == turn_->member){
+        turn_ = after;
+    }
+
     delete iter->next;
     iter->next = after;
+}
+
+bool TurnOrder::hasMemberInOrder(Member *member)
+{
+    return order_.find(member) != order_.end();
 }
 
 void TurnOrder::deleteOrder()

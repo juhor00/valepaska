@@ -5,6 +5,7 @@
 #include "group.h"
 #include <random>
 #include <chrono>
+#include <unordered_set>
 
 struct Node {
 
@@ -49,13 +50,18 @@ public:
     Member* turnTo(Member* member);
     Member* turnTo(id id);
 
-private:
+protected:
 
     void addToOrder(Member* member);
     void removeFromOrder(Member* member);
+    bool hasMemberInOrder(Member* member);
+
+private:
+
     void deleteOrder();
 
     Node* turn_;
+    std::unordered_set<Member*> order_;
 };
 
 #endif // TURNORDER_H
