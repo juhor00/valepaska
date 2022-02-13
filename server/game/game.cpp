@@ -193,6 +193,7 @@ bool Game::suspect(Player *player)
         handler_->print("Claim was right, suspecter takes cards");
         takeAll(player);
         turnTo(claimer);
+        checkWin();
     }
     return true;
 }
@@ -208,6 +209,7 @@ bool Game::discard(discardID id)
     cardStack_->clear();
     turnTo(claims_.back().claimer);
     claims_.clear();
+    checkWin();
 
     // Handle win
     return true;
