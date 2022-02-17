@@ -29,6 +29,7 @@ public:
     void deckEvent(Card card) override;
     void print(std::string message) override;
     void pendingDiscard(discardID id) override;
+    void newClaim(int rank, int amount) override;
 
 private:
 
@@ -54,6 +55,7 @@ private:
         {"suspect", "Suspect the latest played cards"}
 
     };
+
     const int cmdLen_;
     inline static const string BACK = "Go back by typing \"back\"";
     inline static const string RETURN = "Returning...";

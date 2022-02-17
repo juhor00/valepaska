@@ -41,6 +41,11 @@ void Tester::pendingDiscard(discardID id)
     }
 }
 
+void Tester::newClaim(int rank, int amount)
+{
+
+}
+
 void Tester::mainloop()
 {
     string input;
