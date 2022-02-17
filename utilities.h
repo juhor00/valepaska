@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 namespace utils{
 
@@ -26,6 +27,9 @@ namespace utils{
     std::unordered_set<std::string> toString(const std::unordered_set<int>& i);
     std::unordered_map<std::string, std::string> toString(const std::unordered_map<int, int>& i);
     std::string toString(const int& i);
+
+    std::string toLower(std::string s);
+    std::string toUpper(std::string s);
 }
 
 

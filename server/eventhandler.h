@@ -2,13 +2,14 @@
 #define EVENTHANDLER_H
 
 #include "server.h"
-#include "./game/lobby.h"
+#include "handler.h"
+#include "./game/groups/lobby.h"
 #include "./game/game.h"
 
 class EventHandler;
 typedef void (EventHandler::*handler)(SOCKET, parameters&);
 
-class EventHandler : protected Server
+class EventHandler : protected Server, public Handler
 {
 public:
     EventHandler();
@@ -17,6 +18,7 @@ public:
     void start(Lobby* lobby);
 
     // Event generators
+    /*
     void generateTurnEvent(Game* game, id player);
     void generateWinEvent(Game* game, id player);
     void generateLoseEvent(Game* game, id player);
@@ -24,6 +26,7 @@ public:
 
     void generatePlayEvent(Game* game, cards& cards);
     void generateDrawEvent(Game* game, cards& cards);
+    */
 
 protected:
 

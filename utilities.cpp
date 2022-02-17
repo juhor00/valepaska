@@ -118,3 +118,15 @@ std::string utils::toString(const int &i)
 {
     return std::to_string(i);
 }
+
+std::string utils::toLower(std::string s)
+{
+    std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+    return s;
+}
+
+std::string utils::toUpper(std::string s)
+{
+    std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+    return s;
+}
