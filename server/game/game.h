@@ -60,7 +60,6 @@ private:
     void draw(Player* player);
     void draw(Player* player, int amount);
     void drawTo(Player* player, int target);
-    Card playFromDeck(Player* player);
 
     // CardStack
     void takeAll(Player* player);

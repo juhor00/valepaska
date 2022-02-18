@@ -211,7 +211,6 @@ bool Game::discard(discardID id)
     claims_.clear();
     checkWin();
 
-    // Handle win
     return true;
 }
 
