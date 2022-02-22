@@ -15,6 +15,8 @@ SOURCES += \
     client.cpp \
     eventhandler.cpp \
     gui/widgets/cardwidget.cpp \
+    gui/widgets/closedcard.cpp \
+    gui/widgets/openedcard.cpp \
     main.cpp \
     gui/mainwindow.cpp
 
@@ -25,7 +27,9 @@ HEADERS += \
     client.h \
     eventhandler.h \
     gui/mainwindow.h \
-    gui/widgets/cardwidget.h
+    gui/widgets/cardwidget.h \
+    gui/widgets/closedcard.h \
+    gui/widgets/openedcard.h
 
 FORMS += \
     mainwindow.ui

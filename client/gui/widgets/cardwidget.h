@@ -2,29 +2,19 @@
 #define CARDWIDGET_H
 
 #include <QLabel>
-#include "../card.h"
 
-class CardWidget : public QLabel, public Card
+class CardWidget : public QLabel
 {
     Q_OBJECT
 public:
-    CardWidget(QWidget *parent, int rank, char suit);
-    CardWidget(QWidget *parent, std::string str);
-
-    void turn();
+    CardWidget(QWidget *parent, QPixmap image);
 
 signals:
 
 
 private:
 
-    QPixmap loadFront();
-    QPixmap loadBack();
-
-
-    QPixmap front_;
-    QPixmap back_;
-    bool isShowing_;
+    QPixmap image_;
 };
 
 #endif // CARDWIDGET_H
