@@ -35,3 +35,6 @@ DISTFILES += \
     networkConfig.txt
 
 LIBS += -lws2_32
+
+RESOURCES += \
+    gui/resources.qrc
