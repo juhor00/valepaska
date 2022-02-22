@@ -42,11 +42,12 @@ public:
     static bool isValidRank(int rank);
     static bool isValidSuit(char suit);
 
-
-private:
+protected:
 
     static int getRankFromStr(std::string s);
     static char getSuitFromStr(std::string s);
+
+private:
 
     int rank_;
     char suit_;
