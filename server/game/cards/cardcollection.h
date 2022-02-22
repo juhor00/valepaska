@@ -1,7 +1,7 @@
 #ifndef CARDCOLLECTION_H
 #define CARDCOLLECTION_H
 
-#include "card.h"
+#include "../card.h"
 #include <iostream>
 #include <unordered_set>
 

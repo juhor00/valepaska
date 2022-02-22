@@ -4,10 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        ../card.cpp \
         ../event.cpp \
         ../utilities.cpp \
         eventhandler.cpp \
-        game/cards/card.cpp \
         game/cards/cardcollection.cpp \
         game/cards/cardstack.cpp \
         game/cards/deck.cpp \
@@ -23,10 +23,10 @@ SOURCES += \
         tester.cpp
 
 HEADERS += \
+    ../card.h \
     ../event.h \
     ../utilities.h \
     eventhandler.h \
-    game/cards/card.h \
     game/cards/cardcollection.h \
     game/cards/cardstack.h \
     game/cards/deck.h \
