@@ -3,8 +3,9 @@
 
 #include "cardwidget.h"
 #include "../card.h"
+#include <QDebug>
 
-class OpenedCard : public CardWidget, public Card
+class OpenedCard : public Card, public CardWidget
 {
 public:
     OpenedCard(int rank, char suit, QWidget *parent = nullptr);

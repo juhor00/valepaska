@@ -2,17 +2,20 @@
 
 
 OpenedCard::OpenedCard(int rank, char suit, QWidget *parent):
-    CardWidget(loadImage(), parent),
-    Card(rank, suit)
+    Card(rank, suit),
+    CardWidget(loadImage(), parent)
 {}
 
 OpenedCard::OpenedCard(std::string str, QWidget *parent):
-    CardWidget(loadImage(), parent),
-    Card(str)
+    Card(str),
+    CardWidget(loadImage(), parent)
 {}
 
 QPixmap OpenedCard::loadImage()
 {
-    std::string filename = Card::toString() + ".png";
-    return QPixmap(QString::fromStdString(filename));
+    qDebug() << QString::fromStdString(toString());
+    std::string filename = ":/resources/"+toString() + ".png";
+    QPixmap pix = QString::fromStdString(filename);
+
+    return pix.scaledToWidth(DEFAULT_W);
 }
