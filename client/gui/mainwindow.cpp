@@ -6,8 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->cards->addWidget(new OpenedCard(3, 'S'));
-    ui->cards->addWidget(new QLabel(tr("testi")));
+    ui->handLayout->addWidget(new OpenedCard(3, 'S'));
+    ui->handLayout->addWidget(new QLabel(tr("testi")));
 }
 
 MainWindow::~MainWindow()
