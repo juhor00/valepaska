@@ -1,19 +1,15 @@
 #include "openedcard.h"
 
 
-OpenedCard::OpenedCard(QWidget *parent, int rank, char suit):
-    CardWidget(parent, loadImage()),
+OpenedCard::OpenedCard(int rank, char suit, QWidget *parent):
+    CardWidget(loadImage(), parent),
     Card(rank, suit)
-{
+{}
 
-}
-
-OpenedCard::OpenedCard(QWidget *parent, std::string str):
-    CardWidget(parent, loadImage()),
+OpenedCard::OpenedCard(std::string str, QWidget *parent):
+    CardWidget(loadImage(), parent),
     Card(str)
-{
-
-}
+{}
 
 QPixmap OpenedCard::loadImage()
 {

@@ -1,7 +1,7 @@
 #include "closedcard.h"
 
 ClosedCard::ClosedCard(QWidget *parent):
-    CardWidget(parent, loadImage())
+    CardWidget(loadImage(), parent)
 {
 
 }

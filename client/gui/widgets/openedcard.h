@@ -7,8 +7,9 @@
 class OpenedCard : public CardWidget, public Card
 {
 public:
-    OpenedCard(QWidget *parent, int rank, char suit);
-    OpenedCard(QWidget *parent, std::string str);
+    OpenedCard(int rank, char suit, QWidget *parent = nullptr);
+    OpenedCard(std::string str, QWidget *parent = nullptr);
+
 
 private:
 

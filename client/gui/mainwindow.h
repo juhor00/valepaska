@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "widgets/openedcard.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +17,8 @@ public:
     ~MainWindow();
 
 private:
+
+//OpenedCard* card_;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
