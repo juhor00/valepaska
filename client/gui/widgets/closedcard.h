@@ -8,9 +8,12 @@ class ClosedCard : public CardWidget
 public:
     ClosedCard(QWidget *parent);
 
-private:
 
-    QPixmap loadImage();
+
+
+    // CardWidget interface
+protected:
+    QPixmap loadImage() const override;
 };
 
 #endif // CLOSEDCARD_H

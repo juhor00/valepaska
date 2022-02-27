@@ -1,13 +1,13 @@
 #include "closedcard.h"
 
 ClosedCard::ClosedCard(QWidget *parent):
-    CardWidget(loadImage(), parent)
+    CardWidget(ClosedCard::loadImage(), parent)
 {
 
 }
 
-QPixmap ClosedCard::loadImage()
+QPixmap ClosedCard::loadImage() const
 {
-    std::string filename = "red_back.png";
+    std::string filename = ":/resources/red_back.png";
     return QPixmap(QString::fromStdString(filename));
 }

@@ -12,11 +12,12 @@ public:
     OpenedCard(std::string str, QWidget *parent = nullptr);
 
 
-private:
-
-    QPixmap loadImage();
 
 
+
+    // CardWidget interface
+protected:
+    QPixmap loadImage() const override;
 };
 
 #endif // OPENEDCARD_H
