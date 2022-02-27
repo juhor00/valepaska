@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "widgets/openedcard.h"
+#include "hand.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,5 +21,6 @@ private:
 
 //OpenedCard* card_;
     Ui::MainWindow *ui;
+    Hand* hand_;
 };
 #endif // MAINWINDOW_H
