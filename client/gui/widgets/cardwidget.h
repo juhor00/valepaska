@@ -2,23 +2,27 @@
 #define CARDWIDGET_H
 
 #include <QLabel>
+#include <QResizeEvent>
 
-const int IMG_W = 1051;
-const int IMG_H = 681;
-const int MIN_W = 50;
+const int MIN_W = 100;
 const int DEFAULT_W = 130;
 
 class CardWidget : public QLabel
 {
 public:
 
-    CardWidget(const QPixmap &pixmap, QWidget *parent = nullptr);
-    CardWidget(const QPixmap &pixmap);
+    CardWidget(const QPixmap pixmap, QWidget *parent = nullptr);
 
     QSize sizeHint() const override;
     QSize minimumSizeHint() const override;
     int heightForWidth(int w) const override;
-    bool hasHeightForWidth() const override;
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *event) override;
+    virtual QPixmap loadImage() const = 0;
+
+
 
 
 
@@ -26,6 +30,8 @@ signals:
 
 
 private:
+
+    const QPixmap pix_;
 };
 
 #endif // CARDWIDGET_H

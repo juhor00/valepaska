@@ -1,8 +1,9 @@
 #include "cardwidget.h"
 
 
-CardWidget::CardWidget(const QPixmap &pixmap, QWidget *parent) :
-    QLabel(parent)
+CardWidget::CardWidget(const QPixmap pixmap, QWidget *parent) :
+    QLabel(parent),
+    pix_(pixmap)
 {
     QLabel::setPixmap(pixmap);
 }
@@ -19,10 +20,13 @@ QSize CardWidget::minimumSizeHint() const
 
 int CardWidget::heightForWidth(int w) const
 {
-    return (w / IMG_W) * IMG_H;
+    QSize s = pix_.size();
+    return w * s.height() / s.width();
 }
 
-bool CardWidget::hasHeightForWidth() const
+
+void CardWidget::resizeEvent(QResizeEvent *event)
 {
-    return true;
+    QLabel::resizeEvent(event);
+    this->setPixmap(pix_.scaled(event->size(), Qt::KeepAspectRatio));
 }
