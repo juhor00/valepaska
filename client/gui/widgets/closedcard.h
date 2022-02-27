@@ -6,7 +6,7 @@
 class ClosedCard : public CardWidget
 {
 public:
-    ClosedCard(QWidget *parent);
+    ClosedCard(QWidget *parent = nullptr);
 
 
 
