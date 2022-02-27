@@ -4,10 +4,14 @@
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    hand_(new Hand)
+    hand_(new Hand),
+    deck_(new CardStack)
 {
     ui->setupUi(this);
-    ui->bottom->insertLayout(2, hand_);
+
+    ui->bottom->insertLayout(1, hand_);
+    ui->middle->insertLayout(0, deck_);
+
 
     hand_->addWidget(new OpenedCard(3, 'S'));
     hand_->addWidget(new OpenedCard(3, 'S'));
@@ -15,6 +19,14 @@ MainWindow::MainWindow(QWidget *parent):
     hand_->addWidget(new OpenedCard(3, 'S'));
     hand_->addWidget(new OpenedCard(3, 'S'));
     hand_->addWidget(new OpenedCard(3, 'S'));
+
+
+    deck_->addWidget(new ClosedCard);
+    deck_->addWidget(new ClosedCard);
+    deck_->addWidget(new ClosedCard);
+    deck_->addWidget(new ClosedCard);
+    deck_->addWidget(new ClosedCard);
+    deck_->addWidget(new ClosedCard);
 
 
 
