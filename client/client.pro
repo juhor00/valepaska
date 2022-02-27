@@ -14,6 +14,8 @@ SOURCES += \
     ../utilities.cpp \
     client.cpp \
     eventhandler.cpp \
+    gui/cardlayout.cpp \
+    gui/cardstack.cpp \
     gui/hand.cpp \
     gui/widgets/cardwidget.cpp \
     gui/widgets/closedcard.cpp \
@@ -27,6 +29,8 @@ HEADERS += \
     ../utilities.h \
     client.h \
     eventhandler.h \
+    gui/cardlayout.h \
+    gui/cardstack.h \
     gui/hand.h \
     gui/mainwindow.h \
     gui/widgets/cardwidget.h \
