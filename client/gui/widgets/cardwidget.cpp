@@ -6,6 +6,7 @@ CardWidget::CardWidget(const QPixmap pixmap, QWidget *parent) :
     pix_(pixmap)
 {
     QLabel::setPixmap(pixmap);
+    this->setMinimumWidth(MIN_W);
 }
 
 QSize CardWidget::sizeHint() const

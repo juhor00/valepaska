@@ -4,8 +4,8 @@
 #include <QLabel>
 #include <QResizeEvent>
 
-const int MIN_W = 100;
-const int DEFAULT_W = 130;
+const int MIN_W = 120;
+const int DEFAULT_W = 140;
 
 class CardWidget : public QLabel
 {
