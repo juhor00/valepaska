@@ -21,49 +21,35 @@
        <layout class="QHBoxLayout" name="opponents"/>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="middle">
-        <item>
-         <widget class="QFrame" name="deckFrame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QFrame" name="cardstackFrame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QGridLayout" name="playedLayout"/>
-        </item>
-       </layout>
+       <layout class="QHBoxLayout" name="middle"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="bottom">
         <item>
-         <widget class="QFrame" name="turnFrame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
           </property>
-         </widget>
+         </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="handLayout"/>
-        </item>
-        <item>
-         <layout class="QGridLayout" name="claimsLayout"/>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
