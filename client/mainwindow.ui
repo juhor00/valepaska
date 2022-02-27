@@ -18,10 +18,37 @@
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="layout">
       <item>
-       <layout class="QHBoxLayout" name="opponents"/>
+       <layout class="QHBoxLayout" name="top"/>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="middle"/>
+       <layout class="QHBoxLayout" name="middle">
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="bottom">

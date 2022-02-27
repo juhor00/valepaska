@@ -25,6 +25,7 @@ private:
     Ui::MainWindow *ui;
     Hand* hand_;
     CardStack* deck_;
+    CardStack* cardStack_;
 
 };
 #endif // MAINWINDOW_H
