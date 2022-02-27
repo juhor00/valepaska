@@ -2,12 +2,14 @@
 
 Hand::Hand(QWidget *parent):
     QLayout(parent)
-{}
+{
+    this->Hand::setSpacing(SPACING_PERCENT);
+}
 
 Hand::~Hand()
 {
      QLayoutItem *item;
-     while ((item = takeAt(0)))
+     while ((item = Hand::takeAt(0)))
          delete item;
 }
 
@@ -16,10 +18,10 @@ QSize Hand::sizeHint() const
    QSize s(0,0);
    for(int i=0; i<count(); i++){
        QSize itemSize = itemAt(i)->sizeHint();
-       s = QSize(s.width() + itemSize.width() + SPACING, s.height());
+       s = QSize(s.width() + itemSize.width() + spacing(), s.height());
        s = s.expandedTo(itemSize);
    }
-   return QSize(s.width()-SPACING, s.height()+HOVER_Y);
+   return QSize(s.width()-spacing(), s.height()+HOVER_Y);
 }
 
 QSize Hand::minimumSize() const
@@ -30,12 +32,12 @@ QSize Hand::minimumSize() const
     while(i < count()){
         QSize itemSize = itemAt(i)->minimumSize();
         qDebug() << "ItemSize min" << itemSize;
-        s = QSize(s.width() + itemSize.width() + SPACING, s.height());
+        s = QSize(s.width() + itemSize.width() + spacing(), s.height());
         s = s.expandedTo(itemSize);
         ++i;
     }
-    qDebug() << "MinSize hand" << QSize(s.width()-SPACING, s.height()+HOVER_Y);
-    return QSize(s.width()-SPACING, s.height()+HOVER_Y);
+    qDebug() << "MinSize hand" << QSize(s.width()-spacing(), s.height()+HOVER_Y);
+    return QSize(s.width()-spacing(), s.height()+HOVER_Y);
 }
 
 void Hand::setGeometry(const QRect &r)
@@ -45,7 +47,7 @@ void Hand::setGeometry(const QRect &r)
     if(count() == 0){
         return;
     }
-    int w = ( r.width() - SPACING * (count()-1) ) / count();
+    int w = ( r.width() - spacing() * (count()-1) ) / count();
     int h = r.height() - HOVER_Y;
 
     int i = 0;
@@ -54,7 +56,7 @@ void Hand::setGeometry(const QRect &r)
         QLayoutItem* o = items_.at(i);
         QRect geom(
                     // x, y, w, h
-                    r.x() + i * (w + SPACING),
+                    r.x() + i * (w + spacing()),
                     r.y()+HOVER_Y,
                     w,
                     h);
@@ -85,4 +87,17 @@ int Hand::count() const
 {
     // QVector::size() returns the number of QLayoutItems in m_items
     return items_.size();
+}
+
+int Hand::spacing() const
+{
+    if(items_.empty()){
+        return 0;
+    }
+    return spacing_ * items_.at(0)->geometry().width() / 100;
+}
+
+void Hand::setSpacing(int s)
+{
+    spacing_ = s;
 }

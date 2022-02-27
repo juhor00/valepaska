@@ -7,7 +7,7 @@
 #include <QString>
 #include "widgets/cardwidget.h"
 
-const int SPACING = -20;
+const int SPACING_PERCENT = -10;
 const int HOVER_Y = 20;
 
 class Hand : public QLayout
@@ -31,10 +31,15 @@ public:
     QLayoutItem *itemAt(int index) const override;
     QLayoutItem *takeAt(int index) override;
     int count() const override;
+    int spacing() const override;
+    void setSpacing(int s) override;
+
+
 
 private:
-    QVector<QLayoutItem*> items_;
 
+    QVector<QLayoutItem*> items_;
+    int spacing_;
 
 };
 
