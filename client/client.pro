@@ -14,12 +14,13 @@ SOURCES += \
     ../utilities.cpp \
     client.cpp \
     eventhandler.cpp \
-    gui/cardlayout.cpp \
-    gui/cardstack.cpp \
-    gui/hand.cpp \
-    gui/widgets/cardwidget.cpp \
-    gui/widgets/closedcard.cpp \
-    gui/widgets/openedcard.cpp \
+    gui/widgets/aspectratio.cpp \
+    gui/widgets/layouts/cardlayout.cpp \
+    gui/widgets/layouts/cardstack.cpp \
+    gui/widgets/layouts/hand.cpp \
+    gui/widgets/cards/cardwidget.cpp \
+    gui/widgets/cards/closedcard.cpp \
+    gui/widgets/cards/openedcard.cpp \
     main.cpp \
     gui/mainwindow.cpp
 
@@ -29,13 +30,14 @@ HEADERS += \
     ../utilities.h \
     client.h \
     eventhandler.h \
-    gui/cardlayout.h \
-    gui/cardstack.h \
-    gui/hand.h \
+    gui/widgets/aspectratio.h \
+    gui/widgets/layouts/cardlayout.h \
+    gui/widgets/layouts/cardstack.h \
+    gui/widgets/layouts/hand.h \
     gui/mainwindow.h \
-    gui/widgets/cardwidget.h \
-    gui/widgets/closedcard.h \
-    gui/widgets/openedcard.h
+    gui/widgets/cards/cardwidget.h \
+    gui/widgets/cards/closedcard.h \
+    gui/widgets/cards/openedcard.h
 
 FORMS += \
     mainwindow.ui

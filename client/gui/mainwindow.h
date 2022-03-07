@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "widgets/openedcard.h"
-#include "widgets/closedcard.h"
-#include "hand.h"
-#include "cardstack.h"
+#include "widgets/cards/openedcard.h"
+#include "widgets/cards/closedcard.h"
+#include "widgets/layouts/hand.h"
+#include "widgets/layouts/cardstack.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

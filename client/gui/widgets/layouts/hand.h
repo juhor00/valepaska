@@ -3,7 +3,7 @@
 
 #include <QVector>
 #include "cardlayout.h"
-#include "widgets/cardwidget.h"
+#include "../cards/cardwidget.h"
 
 
 class Hand : public CardLayout
