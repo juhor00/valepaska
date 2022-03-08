@@ -27,6 +27,7 @@ protected:
 private slots:
 
     void onCardHover(QEnterEvent* event);
+    void onCardHoverLeave();
 
 private:
 

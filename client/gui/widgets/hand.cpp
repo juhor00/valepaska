@@ -10,6 +10,8 @@ void Hand::add(OpenedCard *card)
     card->setParent(this);
     connect(card, SIGNAL(hovered(QEnterEvent*)),
             this, SLOT(onCardHover(QEnterEvent*)));
+    connect(card, SIGNAL(hoveredLeft()),
+            this, SLOT(onCardHoverLeave()));
     cards.insert(card);
 }
 
@@ -75,9 +77,7 @@ void Hand::onCardHover(QEnterEvent* event)
             return;
         // Other card is lifted
         } else if(liftedCard){
-            qDebug() << "Lowering card " << liftedCard;
-            QRect geometry = liftedCard->geometry().translated(0, getHover(liftedCard));
-            liftedCard->setGeometry(geometry);
+            onCardHoverLeave();
         }
 
         qDebug() << "Lifting card " << card;
@@ -86,6 +86,17 @@ void Hand::onCardHover(QEnterEvent* event)
 
         liftedCard = card;
     }
+}
+
+void Hand::onCardHoverLeave()
+{
+    if(liftedCard == nullptr){
+        return;
+    }
+    qDebug() << "Lowering card " << liftedCard;
+    QRect geometry = liftedCard->geometry().translated(0, getHover(liftedCard));
+    liftedCard->setGeometry(geometry);
+    liftedCard = nullptr;
 }
 
 void Hand::placeCards()

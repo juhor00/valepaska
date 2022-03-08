@@ -43,3 +43,9 @@ void CardWidget::enterEvent(QEnterEvent *event)
     emit hovered(event);
     QLabel::enterEvent(event);
 }
+
+void CardWidget::leaveEvent(QEvent *event)
+{
+    emit hoveredLeft();
+    QLabel::leaveEvent(event);
+}
