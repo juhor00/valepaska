@@ -7,6 +7,7 @@ CardWidget::CardWidget(const QPixmap pixmap, QWidget *parent) :
 {
     QLabel::setPixmap(pixmap);
     this->setMinimumWidth(MIN_W);
+    this->setMouseTracking(true);
 }
 
 QSize CardWidget::sizeHint() const
@@ -40,7 +41,7 @@ void CardWidget::resizeEvent(QResizeEvent *event)
 
 void CardWidget::enterEvent(QEnterEvent *event)
 {
-    emit hovered(event);
+    emit hovered(event->position());
     QLabel::enterEvent(event);
 }
 
@@ -48,4 +49,10 @@ void CardWidget::leaveEvent(QEvent *event)
 {
     emit hoveredLeft();
     QLabel::leaveEvent(event);
+}
+
+void CardWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    emit hovered(event->position());
+    QLabel::mouseMoveEvent(event);
 }

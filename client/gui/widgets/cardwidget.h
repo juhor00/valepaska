@@ -28,7 +28,7 @@ protected:
 
 signals:
 
-    void hovered(QEnterEvent* event);
+    void hovered(QPointF position);
     void hoveredLeft();
 
 
@@ -40,6 +40,11 @@ private:
 protected:
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
+
+
+    // QWidget interface
+protected:
+    void mouseMoveEvent(QMouseEvent *event) override;
 };
 
 #endif // CARDWIDGET_H

@@ -8,8 +8,8 @@ Hand::Hand(QWidget *parent):
 void Hand::add(OpenedCard *card)
 {
     card->setParent(this);
-    connect(card, SIGNAL(hovered(QEnterEvent*)),
-            this, SLOT(onCardHover(QEnterEvent*)));
+    connect(card, SIGNAL(hovered(QPointF)),
+            this, SLOT(onCardHover(QPointF)));
     connect(card, SIGNAL(hoveredLeft()),
             this, SLOT(onCardHoverLeave()));
     cards.insert(card);
@@ -64,23 +64,20 @@ void Hand::resizeEvent(QResizeEvent *)
     placeCards();
 }
 
-void Hand::onCardHover(QEnterEvent* event)
+void Hand::onCardHover(QPointF position)
 {
     CardWidget* card = dynamic_cast<CardWidget*>(sender());
-    qDebug() << "Hover " << card << event;
 
-    if(event->position().y() < card->geometry().height() - getHover(card->geometry().height())){
+    if(position.y() < card->geometry().height() - getHover(card->geometry().height())){
 
         // Already lifted
         if(liftedCard == card){
-            qDebug() << "Already lifted";
             return;
         // Other card is lifted
         } else if(liftedCard){
             onCardHoverLeave();
         }
 
-        qDebug() << "Lifting card " << card;
         QRect geometry = card->geometry().translated(0, -getHover(card));
         card->setGeometry(geometry);
 
@@ -93,7 +90,6 @@ void Hand::onCardHoverLeave()
     if(liftedCard == nullptr){
         return;
     }
-    qDebug() << "Lowering card " << liftedCard;
     QRect geometry = liftedCard->geometry().translated(0, getHover(liftedCard));
     liftedCard->setGeometry(geometry);
     liftedCard = nullptr;
