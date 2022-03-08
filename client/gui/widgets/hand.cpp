@@ -64,9 +64,28 @@ void Hand::resizeEvent(QResizeEvent *)
 
 void Hand::onCardHover(QEnterEvent* event)
 {
-    qDebug() << "hover";
-    qDebug() << "Sender: " << sender();
-    qDebug() << event;
+    CardWidget* card = dynamic_cast<CardWidget*>(sender());
+    qDebug() << "Hover " << card << event;
+
+    if(event->position().y() < card->geometry().height() - getHover(card->geometry().height())){
+
+        // Already lifted
+        if(liftedCard == card){
+            qDebug() << "Already lifted";
+            return;
+        // Other card is lifted
+        } else if(liftedCard){
+            qDebug() << "Lowering card " << liftedCard;
+            QRect geometry = liftedCard->geometry().translated(0, getHover(liftedCard));
+            liftedCard->setGeometry(geometry);
+        }
+
+        qDebug() << "Lifting card " << card;
+        QRect geometry = card->geometry().translated(0, -getHover(card));
+        card->setGeometry(geometry);
+
+        liftedCard = card;
+    }
 }
 
 void Hand::placeCards()
@@ -123,6 +142,11 @@ int Hand::getSpacing(int width) const
 int Hand::getHover(int height) const
 {
     return hoverPercent / 100 * height;
+}
+
+int Hand::getHover(CardWidget *card) const
+{
+    return getHover(card->geometry().height());
 }
 
 QSize Hand::withoutHover(QSize s) const

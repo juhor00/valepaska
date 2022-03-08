@@ -11,6 +11,11 @@ OpenedCard::OpenedCard(std::string str, QWidget *parent):
     CardWidget(OpenedCard::loadImage(), parent)
 {}
 
+OpenedCard::~OpenedCard()
+{
+
+}
+
 QPixmap OpenedCard::loadImage() const
 {
     std::string filename = ":/resources/"+toString() + ".png";

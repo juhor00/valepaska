@@ -37,6 +37,7 @@ private:
     int getSpacing(int width) const;
 
     int getHover(int height) const;
+    int getHover(CardWidget* card) const;
     QSize withoutHover(QSize s) const;
 
 

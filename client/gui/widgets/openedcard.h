@@ -10,6 +10,7 @@ class OpenedCard : public Card, public CardWidget
 public:
     OpenedCard(int rank, char suit, QWidget *parent = nullptr);
     OpenedCard(std::string str, QWidget *parent = nullptr);
+    virtual ~OpenedCard();
 
 
 
