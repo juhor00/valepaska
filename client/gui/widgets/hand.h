@@ -2,15 +2,17 @@
 #define HAND_H
 
 #include <QWidget>
-#include <QVector>
-#include "cardwidget.h"
+#include <unordered_set>
+#include "openedcard.h"
 
 class Hand : public QWidget
 {
 public:
     Hand(QWidget *parent = nullptr);
-    void add(CardWidget* card);
+    void add(OpenedCard* card);
     int size() const;
+
+
 
 
 private:
@@ -18,15 +20,23 @@ private:
     void placeCards();
     QSize getCardsSize(QSize widgetSize);
     float getRatio(QSize s) const;
+    int getSpacing(int width) const;
 
-    QVector<CardWidget*> cards;
-    const float overlapPercent = 10;
+    std::unordered_set<OpenedCard*> cards;
+    const float overlapPercent = 20;
+    const int hover = 20;
+    CardWidget* liftedCard;
 
 
     // QWidget interface
 protected:
     void moveEvent(QMoveEvent *) override;
     void resizeEvent(QResizeEvent *) override;
+
+    // QWidget interface
+public:
+    QSize sizeHint() const override;
+    QSize minimumSizeHint() const override;
 };
 
 #endif // HAND_H
