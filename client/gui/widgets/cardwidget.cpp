@@ -37,3 +37,9 @@ void CardWidget::resizeEvent(QResizeEvent *event)
     QLabel::resizeEvent(event);
     this->setPixmap(pix_.scaled(event->size(), Qt::KeepAspectRatio));
 }
+
+void CardWidget::enterEvent(QEnterEvent *event)
+{
+    emit hovered(event);
+    QLabel::enterEvent(event);
+}

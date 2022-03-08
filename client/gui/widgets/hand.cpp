@@ -8,12 +8,65 @@ Hand::Hand(QWidget *parent):
 void Hand::add(OpenedCard *card)
 {
     card->setParent(this);
+    connect(card, SIGNAL(hovered(QEnterEvent*)),
+            this, SLOT(onCardHover(QEnterEvent*)));
     cards.insert(card);
 }
 
 int Hand::size() const
 {
     return cards.size();
+}
+
+QSize Hand::sizeHint() const
+{
+    // Get cards size via card size hint
+    QSize cardsSize;
+    for(CardWidget* card : cards){
+        if(!cardsSize.isValid()){
+            cardsSize = cardsSize.expandedTo(card->sizeHint());
+        } else {
+            QMargins expand;
+            expand.setRight(getSpacing(card->sizeHint().width()));
+            cardsSize = cardsSize.grownBy(expand);
+        }
+
+    }
+    return cardsSize.grownBy(QMargins(0,getHover(cardsSize.height()),0,0));
+}
+
+QSize Hand::minimumSizeHint() const
+{
+    // Get cards size via card size hint
+    QSize cardsSize;
+    for(CardWidget* card : cards){
+        if(!cardsSize.isValid()){
+            cardsSize = cardsSize.expandedTo(card->minimumSizeHint());
+        } else {
+            QMargins expand;
+            expand.setRight(getSpacing(card->minimumSizeHint().width()));
+            cardsSize = cardsSize.grownBy(expand);
+        }
+
+    }
+    return cardsSize.grownBy(QMargins(0,getHover(cardsSize.height()),0,0));
+}
+
+void Hand::moveEvent(QMoveEvent *)
+{
+    placeCards();
+}
+
+void Hand::resizeEvent(QResizeEvent *)
+{
+    placeCards();
+}
+
+void Hand::onCardHover(QEnterEvent* event)
+{
+    qDebug() << "hover";
+    qDebug() << "Sender: " << sender();
+    qDebug() << event;
 }
 
 void Hand::placeCards()
@@ -75,48 +128,4 @@ int Hand::getHover(int height) const
 QSize Hand::withoutHover(QSize s) const
 {
     return QSize(s.width(), 100*s.height() / (hoverPercent + 100));
-}
-
-void Hand::moveEvent(QMoveEvent *)
-{
-    placeCards();
-}
-
-void Hand::resizeEvent(QResizeEvent *)
-{
-    placeCards();
-}
-
-QSize Hand::sizeHint() const
-{
-    // Get cards size via card size hint
-    QSize cardsSize;
-    for(CardWidget* card : cards){
-        if(!cardsSize.isValid()){
-            cardsSize = cardsSize.expandedTo(card->sizeHint());
-        } else {
-            QMargins expand;
-            expand.setRight(getSpacing(card->sizeHint().width()));
-            cardsSize = cardsSize.grownBy(expand);
-        }
-
-    }
-    return cardsSize.grownBy(QMargins(0,getHover(cardsSize.height()),0,0));
-}
-
-QSize Hand::minimumSizeHint() const
-{
-    // Get cards size via card size hint
-    QSize cardsSize;
-    for(CardWidget* card : cards){
-        if(!cardsSize.isValid()){
-            cardsSize = cardsSize.expandedTo(card->minimumSizeHint());
-        } else {
-            QMargins expand;
-            expand.setRight(getSpacing(card->minimumSizeHint().width()));
-            cardsSize = cardsSize.grownBy(expand);
-        }
-
-    }
-    return cardsSize.grownBy(QMargins(0,getHover(cardsSize.height()),0,0));
 }

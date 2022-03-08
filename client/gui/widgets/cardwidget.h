@@ -2,6 +2,7 @@
 #define CARDWIDGET_H
 
 #include <QLabel>
+#include <QObject>
 #include <QResizeEvent>
 
 const int MIN_W = 120;
@@ -9,6 +10,7 @@ const int DEFAULT_W = 140;
 
 class CardWidget : public QLabel
 {
+    Q_OBJECT
 public:
 
     CardWidget(const QPixmap pixmap, QWidget *parent = nullptr);
@@ -24,15 +26,19 @@ protected:
     virtual QPixmap loadImage() const = 0;
 
 
-
-
-
 signals:
+
+    void hovered(QEnterEvent* event);
 
 
 private:
 
     const QPixmap pix_;
+
+    // QWidget interface
+protected:
+    void enterEvent(QEnterEvent *event) override;
+
 };
 
 #endif // CARDWIDGET_H
