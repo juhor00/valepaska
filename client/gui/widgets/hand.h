@@ -21,10 +21,12 @@ private:
     QSize getCardsSize(QSize widgetSize);
     float getRatio(QSize s) const;
     int getSpacing(int width) const;
+    int getHover(int height) const;
+    QSize withoutHover(QSize s) const;
 
     std::unordered_set<OpenedCard*> cards;
     const float overlapPercent = 20;
-    const int hover = 20;
+    const float hoverPercent = 20;
     CardWidget* liftedCard;
 
 

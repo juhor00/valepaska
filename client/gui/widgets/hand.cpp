@@ -22,8 +22,8 @@ void Hand::placeCards()
 
 
     int x = 0;
-    int y = hover;
-    int h = cardsSize.height();
+    int y = cardsSize.height() - withoutHover(cardsSize).height();
+    int h = withoutHover(cardsSize).height();
     int w = (*cards.begin())->widthForHeight(h);
 
     if(geometry().size().width() > cardsSize.width()){
@@ -44,10 +44,7 @@ void Hand::placeCards()
 QSize Hand::getCardsSize(QSize widgetSize)
 {
     // Get cards size via card size hint
-    QSize cardsSize = sizeHint().shrunkBy(QMargins(0,hover,0,0));
-
-    // Max size
-    widgetSize = widgetSize.shrunkBy(QMargins(0,hover,0,0));
+    QSize cardsSize = sizeHint();
 
     // Max cards size with aspect ratio
     if(getRatio(cardsSize) > getRatio(widgetSize)){
@@ -68,6 +65,16 @@ float Hand::getRatio(QSize s) const
 int Hand::getSpacing(int width) const
 {
     return  (1 - overlapPercent / 100) * width;
+}
+
+int Hand::getHover(int height) const
+{
+    return hoverPercent / 100 * height;
+}
+
+QSize Hand::withoutHover(QSize s) const
+{
+    return QSize(s.width(), 100*s.height() / (hoverPercent + 100));
 }
 
 void Hand::moveEvent(QMoveEvent *)
@@ -94,7 +101,7 @@ QSize Hand::sizeHint() const
         }
 
     }
-    return cardsSize.grownBy(QMargins(0,hover,0,0));
+    return cardsSize.grownBy(QMargins(0,getHover(cardsSize.height()),0,0));
 }
 
 QSize Hand::minimumSizeHint() const
@@ -111,5 +118,5 @@ QSize Hand::minimumSizeHint() const
         }
 
     }
-    return cardsSize.grownBy(QMargins(0,hover,0,0));
+    return cardsSize.grownBy(QMargins(0,getHover(cardsSize.height()),0,0));
 }
