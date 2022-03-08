@@ -25,6 +25,12 @@ int CardWidget::heightForWidth(int w) const
     return w * s.height() / s.width();
 }
 
+int CardWidget::widthForHeight(int h) const
+{
+    QSize s = pix_.size();
+    return h * s.width() / s.height();
+}
+
 
 void CardWidget::resizeEvent(QResizeEvent *event)
 {

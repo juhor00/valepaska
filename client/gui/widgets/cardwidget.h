@@ -16,6 +16,7 @@ public:
     QSize sizeHint() const override;
     QSize minimumSizeHint() const override;
     int heightForWidth(int w) const override;
+    int widthForHeight(int h) const;
 
     // QWidget interface
 protected:
