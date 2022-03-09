@@ -65,5 +65,6 @@
         <file>resources/QS.png</file>
         <file>resources/red_back.png</file>
         <file>resources/yellow_back.png</file>
+        <file>resources/arrow.png</file>
     </qresource>
 </RCC>
