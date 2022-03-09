@@ -2,7 +2,7 @@
 #define HAND_H
 
 #include <QWidget>
-#include <unordered_set>
+#include <set>
 #include "openedcard.h"
 
 class Hand : public QWidget
@@ -42,10 +42,12 @@ private:
     QSize withoutHover(QSize s) const;
 
 
-    std::unordered_set<OpenedCard*> cards;
+    std::set<OpenedCard*> cards;
     const float overlapPercent = 20;
     const float hoverPercent = 20;
+
     CardWidget* liftedCard;
+
 
 };
 
